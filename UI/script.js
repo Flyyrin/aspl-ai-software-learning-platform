@@ -1,18 +1,23 @@
-CodeMirror.commands.autocomplete = function(cm) {
-    CodeMirror.showHint(cm, CodeMirror.hint.html);
-}
 window.onload = function() {
     editor = CodeMirror(document.getElementById("code"), {
         mode: "text/html",
         theme: "neonsyntax",
-        lineWrapping: true,
+        lineWrapping: false,
         lineNumbers: true,
         styleActiveLine: true,
         matchBrackets: true,
 
         extraKeys: {
-            "Ctrl-Space": "autocomplete"
+            "tab": "autocomplete"
         },
-        value: "<!doctype html>\n<html>\n  " + document.documentElement.innerHTML + "\n</html>"
+        value: "// Select a Excersice"
     });
+
+    CodeMirror.commands.autocomplete = function(cm) {
+        CodeMirror.showHint(cm, CodeMirror.hint.html);
+    }
+
+    const instance = mdb.Sidenav.getInstance(document.getElementById('sidenav'));
+
+    instance.show();
 };

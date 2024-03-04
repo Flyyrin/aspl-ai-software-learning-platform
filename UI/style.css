@@ -10,13 +10,30 @@ html, body {
   font-size: 16px;
   letter-spacing: 0.08em;
   height: 100%;
+  width: 100%;
+  background-color: #3F3351 !important;
+  color: #fff;
 }
 
-.codeEditor {
-  resize: none;
-  border: none;
-  outline: none;
-  height: 100%;
-  width: 100%;
-  background-color: #dedede;
+.navbar-left {
+  background-color: #1F1D36;
+}
+
+.dropdown-menu {
+  border-color: #ffffff22 !important;
+  background-color: #504166 !important;
+  color: #fff !important;
+}
+
+.dropdown-item {
+  color: #fff !important;
+}
+
+.dropdown-item:hover {
+  background-color: #665482 !important;
+  border-radius: 5px;
+}
+
+.badge {
+  border: 1px solid #fff;
 }

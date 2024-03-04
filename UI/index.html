@@ -7,24 +7,53 @@
     <title>ASPL | AI Software Learning Platform</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
 </head>
 <body>
     <div class="container-fluid h-100">
         <div class="row h-100 justify-content-center">
-            <div class="col h-100 m-3">
-                <div class="editor">
-                    <div class="lineNumbers"></div>
-                    <textarea class="codeEditor" cols="3" rows="30"></textarea>
+
+            <div class="col-sm-12 col-md-4 h-100 p-0 d-xs-none d-md-block text-center">
+                <nav class="navbar navbar-light bg-light">
+                    <a class="navbar-brand" href="#">
+                      <img src="aspl.svg" height="30" alt="ASPL">
+                    </a>
+                </nav>
+
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="py.svg" class="pr-2" height="30" alt="">
+                        Python <span class="badge badge-secondary">7/12</span>
+                    </button>
+                    <div class="dropdown-menu justify-content-center" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="/python">
+                            <img src="py.svg" class="pr-2" height="30" alt="">
+                            Python <span class="badge badge-secondary">7/12</span>
+                        </a>
+                        <a class="dropdown-item" href="/cs">
+                            <img src="cs.svg" class="pr-2" height="30" alt="">
+                            C# <span class="badge badge-secondary">1/12</span>
+                        </a>
+                        <a class="dropdown-item" href="/javascript">
+                            <img src="js.svg" class="pr-2" height="30" alt="">
+                            JavaScript <span class="badge badge-secondary">1/12</span>
+                        </a>
+                    </div>
                 </div>
             </div>
-                
-            <div class="col h-100">
-                <div id="code"></div>
+
+            <div class="col-sm-12 col-md-4 h-100">
+                <div class="row h-75">
+                    <div class="codeEditor" id="code"></div>
+                </div>
+                <div class="row h-25">
+                    <div class="output p-3"></div>
+                </div>
             </div>
-            
-            <div class="col h-100">
-                3
+
+            <div class="col-sm-12 col-md-4 h-100">
+                2
+            </div>
+                
             </div>
         </div>
     </div>
