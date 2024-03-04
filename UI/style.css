@@ -1,0 +1,22 @@
+@font-face {
+  font-family: sourceSansPro;
+  src: url(source-sans-pro.regular.ttf);
+}
+
+html, body {
+  font-family: sourceSansPro;
+  text-transform: none;
+  font-style: normal;
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  height: 100%;
+}
+
+.codeEditor {
+  resize: none;
+  border: none;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  background-color: #dedede;
+}
