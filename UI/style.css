@@ -13,16 +13,33 @@ html, body {
   width: 100%;
   background-color: #3F3351 !important;
   color: #fff;
+  overflow: hidden;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #3F3351 !important;
+  position: sticky !important;
+  top: 0;
 }
 
 .navbar-left {
   background-color: #1F1D36;
 }
 
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown {
+  position: static !important;
+}
+
 .dropdown-menu {
   border-color: #ffffff22 !important;
   background-color: #504166 !important;
   color: #fff !important;
+  position: absolute !important;
 }
 
 .dropdown-item {
@@ -36,4 +53,41 @@ html, body {
 
 .badge {
   border: 1px solid #fff;
+}
+
+.input {
+  background-color: transparent !important;
+  color: #fff !important;
+  border: 1px solid #ffffff79 !important;
+  border-radius: 10px !important;
+}
+
+.input:focus {
+  border-color: #fff !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.content {
+  height: 80%;
+}
+
+.main {
+  /* border: 2px solid #fff !important; */
+  height: 2000px;
+}
+
+.footer {
+  background-color: #3F3351 !important;
+  position: sticky;
+  bottom: 0;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #504166;
 }

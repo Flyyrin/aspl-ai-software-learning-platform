@@ -16,8 +16,4 @@ window.onload = function() {
     CodeMirror.commands.autocomplete = function(cm) {
         CodeMirror.showHint(cm, CodeMirror.hint.html);
     }
-
-    const instance = mdb.Sidenav.getInstance(document.getElementById('sidenav'));
-
-    instance.show();
 };
