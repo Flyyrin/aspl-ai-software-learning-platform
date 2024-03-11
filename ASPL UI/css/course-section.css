@@ -1,0 +1,55 @@
+.course-section {
+    background-color: #1F1F1F;
+}
+
+.navbar {
+    background-color: #1F1F1F !important;
+    position: sticky !important;
+    top: 0;
+    font-size: 24px;
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.header {
+    border-bottom: 1px solid #ffffff22;
+}
+
+.dropdown {
+    position: static !important;
+}
+  
+.dropdown-menu {
+    border-color: #ffffff22 !important;
+    background-color: #1F1F1F !important;
+    color: #fff !important;
+    position: absolute !important;
+    min-width: 18rem !important;
+}
+
+.dropdown-item {
+    color: #fff !important;
+    border-radius: 5px;
+}
+
+.dropdown-item:hover {
+    background-color: #373737 !important;
+}
+
+.progress-badge {
+    background-color: #5B1CBA;
+}
+
+.course {
+    height: 100%;
+}
+
+.question-section {
+    background-color: #1F1F1F;
+    border-top: 1px solid #ffffff22;
+}
+
+.question-section-content {
+    height: 20rem;
+}
