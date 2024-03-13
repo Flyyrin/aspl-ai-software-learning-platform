@@ -12,6 +12,12 @@ html, body {
     text-transform: none;
     letter-spacing: 0.08em;
     color: #fff;
+    background-color: #1F1F1F;
+    overflow: hidden;
+}
+
+.tab-header {
+    border-bottom: 5px solid #5B1CBA;
 }
 
 ::-webkit-scrollbar {
@@ -29,10 +35,34 @@ html, body {
     border-right: 1px solid #ffffff22;
 }
 
-.output-section {
-    background-color: #181818;
-}
-
 .clickable {
     cursor: pointer;
+}
+
+.clickable[aria-expanded=true] .bi-chevron-down {
+    transition: .3s transform ease-in-out;
+    transform: rotate(0deg);
+}
+
+.clickable[aria-expanded=false] .bi-chevron-down {
+    transition: .3s transform ease-in-out;
+    transform: rotate(180deg);
+}
+
+.btn {
+    font-size: 24px;
+    background-color: #5B1CBA;
+}
+
+.btn:focus {
+    box-shadow: none;
+}
+
+.nav-link.active {
+    background-color: #5B1CBA !important;
+    border-radius: 0.25rem 0.25rem 0px 0px; 
+}
+
+.nav-pills {
+    margin-bottom: -3px;
 }

@@ -1,3 +1,26 @@
 .code-section {
     position: static !important;
 }
+
+.CodeMirror {
+    width: 100%;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.CodeMirror, .CodeMirror-gutters, .CodeMirror-scrollbar-filler {
+    background: transparent !important;
+}
+
+.action-footer {
+    border-top: 1px solid #ffffff22;
+}
+
+.runCode {
+    width: 5rem;
+}
+
+.copyCode {
+    font-size: 2.5rem;
+    margin-top: -10px;
+}

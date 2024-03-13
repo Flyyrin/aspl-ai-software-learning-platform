@@ -39,6 +39,7 @@
 
 .progress-badge {
     background-color: #5B1CBA;
+    font-size: 1rem;
 }
 
 .course {
@@ -52,4 +53,24 @@
 
 .question-section-content {
     height: 20rem;
+}
+
+.chat-box {
+    color: #ffffff22;
+    background-color: #1F1F1F;
+    border: 1px solid #ffffff22;
+    border-radius: 7px;
+    font-size: 24px;
+}
+
+.chat-box:focus {
+    box-shadow: none;
+    background-color: #1F1F1F;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.checkbox-container {
+    font-size: 1.5rem !important;
+    margin-top: -6px;
 }
