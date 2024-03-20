@@ -1,0 +1,42 @@
+.image-container {
+    background-image: url("../img/login.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.form-container {
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px;
+}
+
+.chat-box {
+    color: #fff;
+    background-color: #1F1F1F;
+    border: 1px solid #ffffff22;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+.chat-box:focus {
+    box-shadow: none;
+    background-color: #1F1F1F;
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+a, a:hover {
+    color: #7224e7;
+}
+
+.login {
+    font-size: 16px;
+}
+
+.invalid {
+    border-color: rgb(186, 28, 28);
+}
+
+.invalid:focus {
+    border-color: rgb(186, 28, 28);
+}

@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Data-Access-Layer\Data-Access-Layer.csproj" />
+    <ProjectReference Include="..\Presentation-Layer\Presentation-Layer.csproj" />
+  </ItemGroup>
+
 </Project>

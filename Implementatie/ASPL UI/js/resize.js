@@ -43,6 +43,7 @@ $(document).ready(function(){
             $(".course-section").hide();
             $(".code-section").show();
             $(".output-section").hide();
+            resizeCode()
         } else if (index == 2) {
             $(".course-section").hide();
             $(".code-section").hide();
@@ -52,9 +53,9 @@ $(document).ready(function(){
 });
 
 $(window).on("resize", function() {
-    if (Math.abs(lastWidth - $(window).width()) > 50) {
-        window.top.location = window.top.location
-    }
+    // if (Math.abs(lastWidth - $(window).width()) > 50) {
+    //     window.top.location = window.top.location
+    // }
     lastWidth = $(window).width()
 
     if ($(window).width() < 768) {
@@ -90,6 +91,7 @@ function resizeCode() {
     windowHeight = $(window).height()
     tabHeaderHeight = $(".tab-header").outerHeight();
     footerHeight = $(".action-footer").outerHeight();
+    console.log(footerHeight)
     $(".CodeMirror").outerHeight(windowHeight - tabHeaderHeight - footerHeight, true)
     $(".code-section").outerHeight(windowHeight - tabHeaderHeight, true)
 }

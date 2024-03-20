@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "Create Account";
+}
+
+<h1 class="font-weight-bold text-center">Create Account</h1>
+<p class="text-center">Already Have an Account? <a href="/login">Login</a></p>
+
+<form asp-controller="Account" asp-action="Register" method="post">
+    <p class="invalid usernameMessage pb-0 mb-1">@ViewBag.usernameMessage</p>
+    <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username">
+
+    <p class="invalid emailMessage pb-0 mb-1">@ViewBag.emailMessage</p>
+    <input type="text" class="form-control chat-box mb-3" placeholder="Email" name="email">
+
+    <p class="invalid passwordMessage pb-0 mb-1">@ViewBag.passwordMessage</p>
+    <input type="password" class="form-control chat-box mb-3" placeholder="Password" name="password">
+    <ul class="restrictions invalid mt-1">
+        <li class="restrictionLength">Atleast 5 Characters Long.</li>
+        <li class="restrictionSpaces">Cannot Contain Spaces</li>
+        <li class="restrictionNumber">Atleast 1 Number</li>
+        <li class="restrictionSpecialChar">Atleast 1 Special Character</li>
+    </ul>
+
+    <p class="invalid passwordRepeatMessage pb-0 mb-1">@ViewBag.passwordRepeatMessage</p>
+    <input type="password" class="form-control chat-box mb-3" placeholder="Repeat Password" name="passwordRepeat">
+
+    <button type="submit" class="btn text-white w-100 mb-3 login">Create Account</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="~/js/register.js" asp-append-version="true"></script>

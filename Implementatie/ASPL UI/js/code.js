@@ -4,7 +4,8 @@ $(document).ready(function(){
     $(".runCode").on( "click", function() {
         $(".runCode .text").hide();
         $(".runCode .spinner").show();
-        console.log("Run Code");
+
+        alertMessage("Running Code!")
 
         setTimeout(function(){
             $(".runCode .text").show();
@@ -25,7 +26,9 @@ $(document).ready(function(){
     $(".copyCode").on( "click", function() {
         $(".copyCode .bi-check2").show();
         $(".copyCode .bi-clipboard").hide();
+
         navigator.clipboard.writeText(editor.getValue());
+        alertMessage("Copied Code!")
 
         setTimeout(function(){
             $(".copyCode .bi-check2").hide();

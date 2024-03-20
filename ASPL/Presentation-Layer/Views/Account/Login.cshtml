@@ -1,0 +1,21 @@
+﻿@{
+    Layout = "_LoginLayout";
+    ViewData["Title"] = "Login";
+}
+
+<h1 class="font-weight-bold text-center">Login</h1>
+<p class="text-center">Dont’t Have an Account? <a href="/register">Sign Up</a></p>
+
+@if (ViewBag.wrongCredentials)
+{
+    <p class="invalid">Incorrect Username or Password.</p>
+}
+
+<form asp-controller="Account" asp-action="Login" method="post">
+    <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username">
+    <input type="password" class="form-control chat-box mb-3" placeholder="Password" name="password">
+
+    <button type="submit" class="btn text-white w-100 mb-3 login">Login</button>
+</form>
+
+<p class=""><a href="/forgot-password">Forgot Password?</a></p>

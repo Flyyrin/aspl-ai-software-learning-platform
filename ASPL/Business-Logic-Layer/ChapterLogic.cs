@@ -1,6 +1,10 @@
 ﻿namespace Business_Logic_Layer
 {
-    internal class ChapterLogic
+    public class ChapterLogic
     {
+        public ChapterLogic()
+        {
+            
+        }
     }
 }

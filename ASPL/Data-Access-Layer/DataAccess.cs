@@ -7,9 +7,9 @@ namespace Data_Access_Layer
     {
         private string connectionString;
 
-        public DataAccess(string connectionString)
+        public DataAccess()
         {
-            this.connectionString = connectionString;
+            connectionString = "Server=localhost;Database=aspl;User Id=root;Password=;";
         }
 
         public object ExecuteQuery(string query)
