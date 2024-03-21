@@ -15,8 +15,10 @@
 
     <p class="invalid passwordMessage pb-0 mb-1">@ViewBag.passwordMessage</p>
     <input type="password" class="form-control chat-box mb-3" placeholder="Password" name="password">
+
     <ul class="restrictions invalid mt-1">
-        <li class="restrictionLength">Atleast 5 Characters Long.</li>
+        <li class="restrictionMaxLength">Maximum 20 Characters Long.</li>
+        <li class="restrictionMinLength">Atleast 5 Characters Long.</li>
         <li class="restrictionSpaces">Cannot Contain Spaces</li>
         <li class="restrictionNumber">Atleast 1 Number</li>
         <li class="restrictionSpecialChar">Atleast 1 Special Character</li>

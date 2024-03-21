@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 
 namespace Data_Access_Layer
 {
@@ -9,19 +9,19 @@ namespace Data_Access_Layer
 
         public DataAccess()
         {
-            connectionString = "Server=localhost;Database=aspl;User Id=root;Password=;";
+            connectionString = "Server=localhost;Database=aspl;Uid=root;Pwd=;";
         }
 
-        public object ExecuteQuery(string query)
+        public DataTable ExecuteQuery(string query)
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
+                    MySqlCommand command = new MySqlCommand(query, connection);
                     DataTable dataTable = new DataTable();
-                    SqlDataAdapter adapter = new SqlDataAdapter(command);
+                    MySqlDataAdapter adapter = new MySqlDataAdapter(command);
                     adapter.Fill(dataTable);
                     return dataTable;
         
@@ -38,10 +38,10 @@ namespace Data_Access_Layer
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
+                    MySqlCommand command = new MySqlCommand(query, connection);
                     return command.ExecuteNonQuery();
                 }
             }

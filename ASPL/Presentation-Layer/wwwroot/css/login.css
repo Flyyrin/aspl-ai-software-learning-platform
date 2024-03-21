@@ -25,6 +25,33 @@
     border: 1px solid #fff;
 }
 
+.input-group {
+    border-radius: 7px;
+    border: 1px solid #ffffff22;
+}
+
+.input-group:focus-within {
+    border-color: #fff;
+}
+
+.input-group-input:focus + .input-group-append .passwordToggler {
+    color: #fff;
+}
+
+.input-group-input {
+    border: none;
+}
+
+.input-group-input:focus {
+    border: none;
+}
+
+.input-group-text {
+    color: #ffffff22;
+    border: none;
+    margin-left: 1px !important;
+}
+
 a, a:hover {
     color: #7224e7;
 }
@@ -37,6 +64,10 @@ a, a:hover {
     border-color: rgb(186, 28, 28);
 }
 
-    .invalid:focus {
-        border-color: rgb(186, 28, 28);
-    }
+.invalid:focus {
+    border-color: rgb(186, 28, 28);
+}
+
+.bi::before {
+    margin-bottom: 2px;
+}

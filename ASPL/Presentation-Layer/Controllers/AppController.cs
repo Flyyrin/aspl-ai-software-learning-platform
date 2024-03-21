@@ -15,7 +15,8 @@ namespace Presentation_Layer.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Request.Cookies.TryGetValue("session_token", out string sessionToken))
+            string sessionToken = Request.Cookies["sessionToken"];
+            if (sessionToken != null)
             {
                 Console.WriteLine(sessionToken);
                 return View();

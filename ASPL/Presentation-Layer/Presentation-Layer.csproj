@@ -9,4 +9,13 @@
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net" Version="0.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Business-Logic-Layer\Business-Logic-Layer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,15 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Presentation_Layer.Models;
 using System.Diagnostics;
+using Business_Logic_Layer;
+using Data_Access_Layer;
+using ZstdSharp.Unsafe;
+using Microsoft.AspNetCore.CookiePolicy;
 
 namespace Presentation_Layer.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
+        private readonly AuthenticationLogic authenticationLogic;
 
         public AccountController(ILogger<AccountController> logger)
         {
+            authenticationLogic = new AuthenticationLogic();
             _logger = logger;
         }
 
@@ -22,9 +28,15 @@ namespace Presentation_Layer.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            if (username == "admin")
+            string token = authenticationLogic.LoginUser(username, password);
+            if (token != "")
             {
-               return Redirect("/");
+                Response.Cookies.Append("sessionToken", token, new CookieOptions
+                {
+                    Expires = DateTimeOffset.UtcNow.AddMinutes(120),
+                    HttpOnly = true
+                });
+                return Redirect("/");
             }
             else
             {
