@@ -3,18 +3,37 @@
     ViewData["Title"] = "Create Account";
 }
 
+@model Presentation_Layer.Models.RegisterViewModel
+
+
+@{
+    string usernameClass = "";
+    string emailClass = "";
+
+    if (!string.IsNullOrEmpty(ViewBag.usernameMessage))
+    {
+        usernameClass = "invalid";
+    }
+
+    if (!string.IsNullOrEmpty(ViewBag.emailMessage))
+    {
+        emailClass = "invalid";
+    }
+}
+
 <h1 class="font-weight-bold text-center">Create Account</h1>
 <p class="text-center">Already Have an Account? <a href="/login">Login</a></p>
 
 <form asp-controller="Account" asp-action="Register" method="post">
+    @Html.AntiForgeryToken()
     <p class="invalid usernameMessage pb-0 mb-1">@ViewBag.usernameMessage</p>
-    <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username">
+    <input type="text" class="form-control chat-box mb-3 @usernameClass" placeholder="Username" name="username" value="@ViewBag.username">
 
     <p class="invalid emailMessage pb-0 mb-1">@ViewBag.emailMessage</p>
-    <input type="text" class="form-control chat-box mb-3" placeholder="Email" name="email">
+    <input type="text" class="form-control chat-box mb-3 @emailClass" placeholder="Email" name="email" value="@ViewBag.email">
 
     <p class="invalid passwordMessage pb-0 mb-1">@ViewBag.passwordMessage</p>
-    <input type="password" class="form-control chat-box mb-3" placeholder="Password" name="password">
+    <input type="password" class="form-control chat-box mb-3" placeholder="Password" name="password" value="@ViewBag.password">
 
     <ul class="restrictions invalid mt-1">
         <li class="restrictionMaxLength">Maximum 20 Characters Long.</li>
@@ -25,7 +44,7 @@
     </ul>
 
     <p class="invalid passwordRepeatMessage pb-0 mb-1">@ViewBag.passwordRepeatMessage</p>
-    <input type="password" class="form-control chat-box mb-3" placeholder="Repeat Password" name="passwordRepeat">
+    <input type="password" class="form-control chat-box mb-3" placeholder="Repeat Password" name="passwordRepeat" value="@ViewBag.password">
 
     <button type="submit" class="btn text-white w-100 mb-3 login">Create Account</button>
 </form>

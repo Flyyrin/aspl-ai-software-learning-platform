@@ -3,15 +3,17 @@
     ViewData["Title"] = "Login";
 }
 
+@model Presentation_Layer.Models.LoginViewModel
+
 <h1 class="font-weight-bold text-center">Login</h1>
 <p class="text-center">Dont’t Have an Account? <a href="/register">Sign Up</a></p>
 
-@if (ViewBag.wrongCredentials)
-{
-    <p class="invalid">Incorrect Username or Password.</p>
-}
+
+
+<p class="invalid">@ViewBag.ErrorMessage</p>
 
 <form asp-controller="Account" asp-action="Login" method="post">
+    @Html.AntiForgeryToken()
     <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username">
     
     <div class="input-group mb-3">

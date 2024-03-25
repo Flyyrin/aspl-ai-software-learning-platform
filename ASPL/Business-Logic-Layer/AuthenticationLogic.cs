@@ -1,13 +1,11 @@
 ﻿using Data_Access_Layer;
-using Org.BouncyCastle.Crypto.Generators;
 using System.Data;
-using BCrypt.Net;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
-using Microsoft.Extensions.Configuration;
-using static Org.BouncyCastle.Math.EC.ECCurve;
 using System.Security.Claims;
+using Mysqlx.Session;
+using Microsoft.AspNetCore.Identity;
 
 namespace Business_Logic_Layer
 {
@@ -55,9 +53,53 @@ namespace Business_Logic_Layer
             return token;
         }
 
-        public bool AuthenticateUser(string username, string password)
+        public void RegisterUser(string username, string email, string password, out string token, out bool usernameTaken, out bool emailTaken)
         {
-            return true;
+            usernameTaken = true;
+            emailTaken = true;
+            token = "";
+
+            usernameTaken = authenticationDataAccess.CheckIfUsernameExists(username);
+            emailTaken = authenticationDataAccess.CheckIfEmailExists(email);
+
+            if (!usernameTaken && !emailTaken)
+            {
+                string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
+                int rowsAffected = authenticationDataAccess.RegisterUser(username, email, passwordHash);
+                Console.WriteLine(rowsAffected);
+                if (rowsAffected == 1)
+                {
+                    token = LoginUser(username, password);
+
+                }
+            }
+        }
+
+        public bool AuthenticateUser(string token)
+        {
+            bool authenticated = false;
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtToken));
+
+            try
+            {
+                tokenHandler.ValidateToken(token, new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = "ASPL",
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = securityKey,
+                    ValidateAudience = false,
+                    ValidateLifetime = true
+                }, out SecurityToken validatedToken);
+
+                authenticated =  true;
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("errpr");
+            }
+            return authenticated;
         }
     }
 }
