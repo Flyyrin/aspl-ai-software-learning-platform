@@ -20,6 +20,7 @@ $(document).ready(function(){
     $(".btn").on('click', function(e) {
         if (!validateForm()) {
             e.preventDefault();  
+            alert("prevent")
             validateUsername()
             validateEmail()
             validatePassword()
@@ -44,7 +45,7 @@ function validateUsername() {
         $(username).addClass("invalid")
         $(".usernameMessage").text("Username Contains Invalid Characters.")
         return false
-    } else if (username.val().length > 17 ) {
+    } else if (username.val().length > 10 ) {
         $(username).addClass("invalid")
         $(".usernameMessage").text("Username Is To Long.")
         return false
@@ -73,7 +74,7 @@ function validateEmail() {
 function validatePassword() {
     validatePasswordRepeat();
     var password = $("input[name='password']")
-    var passwordRegex = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[0-9])(?!\s).{5,20}$/;
+    var passwordRegex = /^(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[0-9])(?!\s).{5,}$/;
     var hasNumberRegex = /\d/;
     var hasSpecialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
     var hasSpaceRegex = /\s/;
@@ -85,15 +86,9 @@ function validatePassword() {
         $(".passwordMessage").text("Invalid Password.")
         
         if (password.val().length < 5) {
-            $(".restrictionMinLength").show()
+            $(".restrictionLength").show()
         } else {
-            $(".restrictionMinLength").hide()
-        }
-
-        if (password.val().length > 20) {
-            $(".restrictionMaxLength").show()
-        } else {
-            $(".restrictionMaxLength").hide()
+            $(".restrictionLength").hide()
         }
         
         if (hasSpaceRegex.test(password.val())) {

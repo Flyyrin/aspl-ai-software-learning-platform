@@ -14,10 +14,10 @@
 
 <form asp-controller="Account" asp-action="Login" method="post">
     @Html.AntiForgeryToken()
-    <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username">
+    <input type="text" class="form-control chat-box mb-3" placeholder="Username" name="username" autocomplete="username">
     
     <div class="input-group mb-3">
-        <input type="password" class="form-control input-group-input chat-box" placeholder="Password" name="password">
+        <input type="password" class="form-control input-group-input chat-box" placeholder="Password" name="password" autocomplete="current-password">
         <span class="input-group-append d-block border-left-0">
             <div class="input-group-text bg-transparent m-0"><i class="bi bi-eye-fill clickable passwordToggler"></i></div>
         </span>
