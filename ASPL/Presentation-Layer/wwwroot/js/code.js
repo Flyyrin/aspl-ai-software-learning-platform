@@ -1,20 +1,20 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip()
     $(".runCode .spinner").hide();
-    $(".runCode").on( "click", function() {
+    $(".runCode").on("click", function () {
         $(".runCode .text").hide();
         $(".runCode .spinner").show();
 
         alertMessage("Running Code!")
 
-        setTimeout(function(){
+        setTimeout(function () {
             $(".runCode .text").show();
             $(".runCode .spinner").hide();
             if ($(window).width() < 768) {
                 $(".course-section").hide();
                 $(".code-section").hide();
                 $(".output-section").show();
-                $('.nav-pills .nav-item .nav-link').each(function(i, item){    
+                $('.nav-pills .nav-item .nav-link').each(function (i, item) {
                     $(item).removeClass("active");
                 });
                 $('.nav-pills .nav-item .nav-link').last().addClass("active");
@@ -23,16 +23,17 @@ $(document).ready(function(){
     });
 
     $(".copyCode .bi-check2").hide();
-    $(".copyCode").on( "click", function() {
+    $(".copyCode").on("click", function () {
         $(".copyCode .bi-check2").show();
         $(".copyCode .bi-clipboard").hide();
 
         navigator.clipboard.writeText(editor.getValue());
         alertMessage("Copied Code!")
 
-        setTimeout(function(){
+        setTimeout(function () {
             $(".copyCode .bi-check2").hide();
             $(".copyCode .bi-clipboard").show();
         }, 2000);
     });
+
 });

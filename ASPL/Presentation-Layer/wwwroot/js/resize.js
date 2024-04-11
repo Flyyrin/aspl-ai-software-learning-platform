@@ -91,7 +91,6 @@ function resizeCode() {
     windowHeight = $(window).height()
     tabHeaderHeight = $(".tab-header").outerHeight();
     footerHeight = $(".action-footer").outerHeight();
-    console.log(footerHeight)
     $(".CodeMirror").outerHeight(windowHeight - tabHeaderHeight - footerHeight, true)
     $(".code-section").outerHeight(windowHeight - tabHeaderHeight, true)
 }

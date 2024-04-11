@@ -13,11 +13,11 @@ namespace Presentation_Layer.Controllers
         private readonly StudentLogic studentLogic;
         private readonly ILogger<AppController> _logger;
 
-        public AppController(ILogger<AppController> logger)
+        public AppController(ILogger<AppController> logger, IAuthenticationDataAccess authenticationDataAccess, ICourseDataAccess courseDataAccess, IStudentDataAccess studentDataAccess)
         {
-            authenticationLogic = new AuthenticationLogic();
-            courseLogic = new CourseLogic();
-            studentLogic = new StudentLogic();
+            authenticationLogic = new AuthenticationLogic(authenticationDataAccess);
+            courseLogic = new CourseLogic(courseDataAccess);
+            studentLogic = new StudentLogic(studentDataAccess);
             _logger = logger;
         }
 
@@ -32,7 +32,8 @@ namespace Presentation_Layer.Controllers
                 var appViewModel = new AppViewModel
                 {
                     Courses = courses,
-                    Student = student
+                    Student = student,
+                    LastCourse = Convert.ToInt32(Request.Cookies["lastCourse"] ?? "1"),
                 };
 
 

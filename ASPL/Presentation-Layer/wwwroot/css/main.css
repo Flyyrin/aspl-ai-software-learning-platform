@@ -35,6 +35,10 @@ html, body {
     background-color: #777777;
 }
 
+::-webkit-scrollbar-track {
+    background-color: inherit;
+}
+
 .code-section {
     background-color: #1F1F1F;
     border-left: 1px solid #ffffff22;

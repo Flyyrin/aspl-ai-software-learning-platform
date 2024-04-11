@@ -1,4 +1,5 @@
 ﻿using Business_Logic_Layer;
+using System.Globalization;
 
 namespace Presentation_Layer.Models
 {
@@ -6,5 +7,6 @@ namespace Presentation_Layer.Models
     {
         public List<Course> Courses { get; set; }
         public Student Student {  get; set; }
+        public int LastCourse { get; set; }
     }
 }

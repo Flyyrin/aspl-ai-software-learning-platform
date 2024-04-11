@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Presentation_Layer.Models;
 using System.Diagnostics;
 using Business_Logic_Layer;
-using Data_Access_Layer;
-using ZstdSharp.Unsafe;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.Primitives;
 
@@ -14,9 +12,9 @@ namespace Presentation_Layer.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly AuthenticationLogic authenticationLogic;
 
-        public AccountController(ILogger<AccountController> logger)
+        public AccountController(ILogger<AccountController> logger, IAuthenticationDataAccess authenticationDataAcces)
         {
-            authenticationLogic = new AuthenticationLogic();
+            authenticationLogic = new AuthenticationLogic(authenticationDataAcces);
             _logger = logger;
         }
 

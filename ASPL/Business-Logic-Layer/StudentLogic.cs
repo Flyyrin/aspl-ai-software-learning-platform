@@ -1,13 +1,11 @@
-﻿using Data_Access_Layer;
-
-namespace Business_Logic_Layer
+﻿namespace Business_Logic_Layer
 {
     public class StudentLogic
     {
-        private readonly CourseDataAccess courseDataAccess;
-        public StudentLogic()
+        private readonly ICourseDataAccess courseDataAccess;
+        public StudentLogic(IStudentDataAccess studentDataAccess)
         {
-            courseDataAccess = new CourseDataAccess();
+            studentDataAccess = studentDataAccess;
         }
 
         public Student GetStudentInfo(int id)

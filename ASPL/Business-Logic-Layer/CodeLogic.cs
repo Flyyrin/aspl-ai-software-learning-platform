@@ -1,8 +1,8 @@
 ﻿namespace Business_Logic_Layer
 {
-    public class ChapterLogic
+    public class CodeLogic
     {
-        public ChapterLogic()
+        public CodeLogic()
         {
             
         }

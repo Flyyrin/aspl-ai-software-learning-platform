@@ -19,22 +19,33 @@
 .dropdown {
     position: static !important;
 }
-  
+
 .dropdown-menu {
     border-color: #ffffff22 !important;
     background-color: #1F1F1F !important;
     color: #fff !important;
     position: absolute !important;
     min-width: 18rem !important;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding-right: 17px;
+    box-sizing: content-box;
 }
 
 .dropdown-item {
     color: #fff !important;
     border-radius: 5px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.dropdown-item.wrap {
+    white-space: pre-wrap;
 }
 
 .dropdown-item:hover {
-    background-color: #373737 !important;
+    background-color: #373737;
 }
 
 .progress-badge {
@@ -73,4 +84,60 @@
 .checkbox-container {
     font-size: 1.5rem !important;
     margin-top: -6px;
+}
+
+.chapter-description {
+    color: #808080ff;
+}
+
+.dropdown-item.selected, .dropdown-item.selected:hover {
+    background-color: #5B1CBA !important;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: auto !important;
+}
+
+code {
+    background-color: #161616;
+    border-radius: 5px;
+    color: #fff;
+    padding: 0.25rem;
+}
+
+pre {
+    background-color: #161616;
+    border-radius: 5px;
+    color: #fff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+pre code {
+    padding: 0;
+}
+
+.course-section h1,
+.course-section h2,
+.course-section h3,
+.course-section h4 {
+    margin-top: 3rem;
+}
+
+.hljs {
+    background-color: transparent;
+}
+
+pre code.hljs {
+    padding: 0;
+}
+
+.snippet-header {
+    background-color: #161616;
+    border-radius: 5px;
+    color: #fff;
+    border-bottom: 1px solid #ffffff22;
+}
+
+.snippetCopyCode {
 }

@@ -12,8 +12,4 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Data-Access-Layer\Data-Access-Layer.csproj" />
-  </ItemGroup>
-
 </Project>

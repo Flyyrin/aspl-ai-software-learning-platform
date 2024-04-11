@@ -1,11 +1,8 @@
-﻿using Data_Access_Layer;
-using System.Data;
+﻿using System.Data;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
-using Mysqlx.Session;
-using Microsoft.AspNetCore.Identity;
 
 namespace Business_Logic_Layer
 {
@@ -13,10 +10,10 @@ namespace Business_Logic_Layer
     {
         private string jwtToken = "k5{+j3gSjSvHkLF$MGL)o)!,~V47_Q4.)t]_1H8^M13{o3S0ML";
         private string jwtIssuer = "ASPL";
-        private readonly AuthenticationDataAccess authenticationDataAccess;
-        public AuthenticationLogic()
+        private readonly IAuthenticationDataAccess authenticationDataAccess;
+        public AuthenticationLogic(IAuthenticationDataAccess authenticationDataAccess)
         {
-            authenticationDataAccess = new AuthenticationDataAccess();
+            authenticationDataAccess = authenticationDataAccess;
         }
 
         public string LoginUser(string username, string password)
@@ -97,7 +94,7 @@ namespace Business_Logic_Layer
             }
             catch (Exception)
             {
-                Console.WriteLine("errpr");
+                Console.WriteLine("error");
             }
             return authenticated;
         }

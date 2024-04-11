@@ -1,8 +1,9 @@
 ﻿using System.Data;
+using Business_Logic_Layer;
 
 namespace Data_Access_Layer
 {
-    public class CourseDataAccess
+    public class CourseDataAccess: ICourseDataAccess
     {
         private DataAccess dataAccess;
 

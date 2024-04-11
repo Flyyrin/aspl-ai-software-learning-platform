@@ -1,13 +1,12 @@
-﻿using Data_Access_Layer;
-using System.Data;
+﻿using System.Data;
 
 namespace Business_Logic_Layer
 {
     public class CourseLogic
     {
-        private readonly CourseDataAccess courseDataAccess;
-        public CourseLogic() {
-            courseDataAccess = new CourseDataAccess();
+        private readonly ICourseDataAccess courseDataAccess;
+        public CourseLogic(ICourseDataAccess courseDataAccess) {
+            courseDataAccess = courseDataAccess;
         }
 
         public List<Course> GetCourses()

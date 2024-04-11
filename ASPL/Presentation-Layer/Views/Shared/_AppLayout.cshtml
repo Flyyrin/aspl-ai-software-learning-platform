@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
     <link rel="stylesheet" href="https://codemirror.net/5/theme/ayu-dark.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
     <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/course-section.css" asp-append-version="true" />
@@ -83,8 +84,8 @@
                         <div class="col-xl-4 col-3">
                             <div class="nav-item dropdown active">
                                 <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"  aria-haspopup="true" aria-expanded="false">
-                                    <img src="img/courses/py.svg" class="d-xl-none" height="30" alt="">
-                                    <span class="d-none d-xl-inline">Python</span> 
+                                    <img src="img/courses/@{@Model.Courses[Model.LastCourse-1].Icon}.svg" class="d-xl-none" id="course-image" height="30" alt="">
+                                    <span class="d-none d-xl-inline" id="course-name">@{@Model.Courses[Model.LastCourse-1].Name}</span> 
                                     <i class="bi bi-chevron-down"></i>
                                 </span>
                                 <div class="dropdown-menu p-0 ml-1" id="course-dropdown" aria-labelledby="navbarDropdown">
@@ -95,13 +96,20 @@
                                             <div class="row align-items-center">
                                                 <div class="col-6" data-toggle="tooltip" data-placement="left" title="@course.Desciption">
                                                     <img src="img/courses/@{@course.Icon}.svg" class="pr-2" height="30" alt="">
-                                                    @course.Name
+                                                    <span id="list-course-name">@course.Name</span>
                                                 </div>
                                                 <div class="col text-right">
                                                     <span class="badge progress-badge">7/12</span>
                                                 </div>
                                                 <div class="col text-right checkbox-container">
-                                                    <i class="bi bi-check-circle w-100 align-middle"></i>
+                                                    @if (course == Model.Courses[Model.LastCourse-1])
+                                                    {
+                                                        <i class="bi bi-check-circle w-100 align-middle"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="bi bi-circle w-100 align-middle"></i>
+                                                    }
                                                 </div>
                                             </div>
                                         </a>
@@ -112,45 +120,33 @@
                         </div>
                         <div class="col-xl-4 col-6 nav-item active text-center">
                             <h3 class="m-0 d-flex align-items-center">
-                                <i class="bi bi-chevron-left clickable"></i>
-                                <span class="badge progress-badge">1/20</span>
-                                <i class="bi bi-chevron-right clickable"></i>
+                                <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
+                                <span class="badge progress-badge">
+                                    <span id="current-chapter">0</span>/<span id="chapter-count">0</span>
+                                </span>
+                                <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
                             </h3>
                         </div>
                         <div class="col-xl-4 col-3">
                             <div class="nav-item dropdown active">
-                                <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                                     <h2 class="text-right m-0">
                                         <i class="bi bi-list clickable"></i>
                                     </h2>
                                 </span>
-                                <div class="dropdown-menu dropdown-menu-right p-0 mr-1" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        1. Introduction to Python
-                                    </a>
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        2. Python Basics
-                                    </a>
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        3. Control Structures
-                                    </a>
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        4. Data Structures
-                                    </a>
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        5. Functions
-                                    </a>
-                                    <a class="dropdown-item my-2 py-2" href="#">
-                                        6. File Handling
-                                    </a>
-                                </div>
+                                <div class="dropdown-menu dropdown-menu-right p-0 mr-1" aria-labelledby="navbarDropdown" id="chapter-dropdown"></div>
                             </div>
                         </div>
                     </div>
                 </nav>
-                <div class="container course overflow-auto px-4 py-3">
-                    <h5 class="text-white h4">Collapsed content</h5>
-                    <p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p>
+                <div class="container course m-0 p-0">
+                    <div class="h-100 overflow-auto px-4 py-3" id="course-content">
+                        <div class="h-100 w-100 align-content-center align-items-center text-center">
+                            <div class="spinner spinner-border text-light" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="question-section fixed-bottom position-absolute">
                         <nav class="navbar question-nav bg-dark clickable" data-toggle="collapse" data-target="#question-section-content" aria-controls="question-section-content" aria-expanded="false" aria-label="Toggle navigation"">
                             Ask question
@@ -217,6 +213,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
     <script src="https://codemirror.net/5/mode/python/python.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
     <script src="~/js/alert.js" asp-append-version="true"></script>
