@@ -3,6 +3,9 @@ using Business_Logic_Layer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
+using IronPython.Hosting;
+using Microsoft.Scripting.Hosting;
+using System.Text;
 
 namespace Business_Logic_Layer
 {
@@ -34,8 +37,33 @@ namespace Business_Logic_Layer
         public StudentCode RunCode(int course, string code)
         {
             string output = $"Error {course}";
-            if (course == 1) { 
-                //pyton
+            if (course == 1) { //python
+
+                var engine = Python.CreateEngine();
+                try
+                {
+                    var outputStream = new MemoryStream();
+                    var errorStream = new MemoryStream();
+                    engine.Runtime.IO.SetOutput(outputStream, Console.Out);
+                    engine.Runtime.IO.SetErrorOutput(errorStream, Console.Error);
+                    engine.Execute(code);
+                    outputStream.Seek(0, SeekOrigin.Begin);
+                    errorStream.Seek(0, SeekOrigin.Begin);
+                    output = new StreamReader(outputStream).ReadToEnd();
+                    var error = new StreamReader(errorStream).ReadToEnd();
+                    Console.WriteLine("Output from Python code:");
+                    Console.WriteLine(output);
+                    if (!string.IsNullOrWhiteSpace(error))
+                    {
+                        output = error;
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    output = ex.Message;
+                }
+
             }
             else if (course == 2)
             {
@@ -47,5 +75,6 @@ namespace Business_Logic_Layer
 
             return new StudentCode(code, output, "");
         }
+
     }
 }

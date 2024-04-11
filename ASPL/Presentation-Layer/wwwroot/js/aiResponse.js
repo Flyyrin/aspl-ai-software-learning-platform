@@ -1,10 +1,10 @@
-function getErrorExplanation(course, error) {
+function getErrorExplanation(code, error) {
 
     $.ajax({
         url: 'ai/getErrorExplanation',
         method: 'POST',
         data: {
-            course: course,
+            code: code,
             error: error
         },
         success: function (response) {

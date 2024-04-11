@@ -112,7 +112,7 @@ function runCode() {
             },
             success: function (response) {
                 output = response
-                $("#output-content").text(response)
+                $("#output-content").text(output)
                 saveCode()
                 $(".runCode .text").show();
                 $(".runCode .spinner").hide();
@@ -141,7 +141,7 @@ function loadErrorExplaination() {
     }
     $("#error-explaination-content").hide()
     $("#error-explaination-placeholder").show()
-    getErrorExplanation(currentCourse, output)
+    getErrorExplanation(code, output)
 }
 
 function loadErrorExplaination2(response) {
