@@ -1,4 +1,5 @@
 using Business_Logic_Layer;
+using Data_Access_Layer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -7,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IAuthenticationDataAccess, AuthenticationDataAccess>();
+builder.Services.AddScoped<ICourseDataAccess, CourseDataAccess>();
+builder.Services.AddScoped<IStudentDataAccess, StudentDataAccess>();
 
 //Jwt configuration starts here
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();

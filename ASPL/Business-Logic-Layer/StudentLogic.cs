@@ -2,7 +2,7 @@
 {
     public class StudentLogic
     {
-        private readonly ICourseDataAccess courseDataAccess;
+        private readonly IStudentDataAccess studentDataAccess;
         public StudentLogic(IStudentDataAccess studentDataAccess)
         {
             studentDataAccess = studentDataAccess;
