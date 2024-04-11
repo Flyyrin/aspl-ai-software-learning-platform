@@ -74,14 +74,27 @@ namespace Presentation_Layer.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveCode(int chapter, string code)
+        public IActionResult SaveCode(int chapter, string code, string output, string errorExplanation)
         {
             string sessionToken = Request.Cookies["sessionToken"];
             authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
             if (authenticated)
             {
-                bool success = codeLogic.SaveCode(id, chapter, code);
+                bool success = codeLogic.SaveCode(id, chapter, code, output, errorExplanation);
                 return Content("{status:+ "+success+"}");
+            }
+            return Content("No Access");
+        }
+
+        [HttpPost]
+        public IActionResult RunCode(int course, string code)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                StudentCode studentCode = codeLogic.RunCode(course, code);
+                return Content(studentCode.Output);
             }
             return Content("No Access");
         }

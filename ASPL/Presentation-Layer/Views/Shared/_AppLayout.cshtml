@@ -133,7 +133,7 @@
                             </div>
                         </div>
                         <div class="col-xl-4 col-6 nav-item active text-center">
-                            <h3 class="m-0 d-flex align-items-center">
+                            <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
                                 <span class="badge progress-badge">
                                     <span id="current-chapter">0</span>/<span id="chapter-count">0</span>
@@ -199,9 +199,7 @@
             </div>
             <div class="col-md-4 output-section">
                 <div class="container output overflow-auto px-4 py-3">
-                    <div id="output-content">
-                        <p>Loading...</p>
-                    </div>
+                    <div id="output-content">Output</div>
                     <div class="explaination-section fixed-bottom position-absolute">
                         <nav class="navbar explaination-nav bg-dark clickable" data-toggle="collapse" data-target="#explaination-section-content" aria-controls="explaination-section-content" aria-expanded="false" aria-label="Toggle navigation"">
                             Error explanation
@@ -209,9 +207,14 @@
                         </nav>
                         <div class="collapse" id="explaination-section-content">
                           <div class="explaination-section-content overflow-auto px-4 py-3">
-                            <p id="error-explaination-content">
-                                Loading...
-                            </p>
+                            <p id="error-explaination-content"></p>
+                            <div id="error-explaination-placeholder">
+                                <div class="align-content-center align-items-center text-center">
+                                    <div class="spinner spinner-border text-light" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
                           </div>
                         </div> 
                     </div>
@@ -238,6 +241,7 @@
     <script src="~/js/code.js" asp-append-version="true"></script>
     <script src="~/js/resize.js" asp-append-version="true"></script>
     <script src="~/js/course.js" asp-append-version="true"></script>
+    <script src="~/js/aiResponse.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

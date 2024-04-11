@@ -1,5 +1,6 @@
 ﻿using Business_Logic_Layer.Interfaces;
 using Business_Logic_Layer.Models;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using System.Data;
 
@@ -24,10 +25,27 @@ namespace Business_Logic_Layer
             return new StudentCode("", "", "");
         }
 
-        public bool SaveCode(int student, int chapter, string code)
+        public bool SaveCode(int student, int chapter, string code, string output, string errorExplanation)
         {
-            int rowsAffected = _codeDataAccess.SaveCode(student, chapter, code);
+            int rowsAffected = _codeDataAccess.SaveCode(student, chapter, code, output, errorExplanation);
             return rowsAffected >= 1;
+        }
+
+        public StudentCode RunCode(int course, string code)
+        {
+            string output = $"Error {course}";
+            if (course == 1) { 
+                //pyton
+            }
+            else if (course == 2)
+            {
+                //C#
+            } else if (course == 3)
+            {
+                //js
+            }
+
+            return new StudentCode(code, output, "");
         }
     }
 }

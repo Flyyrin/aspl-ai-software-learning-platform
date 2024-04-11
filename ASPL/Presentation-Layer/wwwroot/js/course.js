@@ -1,6 +1,9 @@
 var currentCourse = localStorage.getItem("lastCourse");
 var currentChapter = localStorage.getItem("lastChapter");
+var menuOpen1 = localStorage.getItem("menuOpen1");
+var menuOpen2 = localStorage.getItem("menuOpen2");
 var spinner = "";
+var cooldownTime = 3000;
 
 if (currentCourse === null) {
     currentCourse = 1;
@@ -12,7 +15,49 @@ if (currentChapter === null) {
     localStorage.setItem("lastChapter", currentChapter);
 }
 
+if (menuOpen1 === null) {
+    menuOpen1 = false;
+    localStorage.setItem("menuOpen1", menuOpen1);
+}
+
+if (menuOpen2 === null) {
+    menuOpen2 = false;
+    localStorage.setItem("menuOpen2", menuOpen2);
+}
+
 $(document).ready(function () {
+    if (menuOpen1 == "true") {
+        $(".question-nav").trigger("click")
+    }
+    if (menuOpen2 == "true") {
+        $(".explaination-nav").trigger("click")
+    }
+
+    $('.question-nav').on('click', function () {
+        console.log("click")
+        if ($("#question-section-content").hasClass("show")) {
+            menuOpen1 = false;
+        } else {
+            menuOpen1 = true;
+        }
+        localStorage.setItem("menuOpen1", menuOpen1);
+    })
+
+    $('.explaination-nav').on('click', function () {
+        console.log("click")
+        if ($("#explaination-section-content").hasClass("show")) {
+            menuOpen2 = false;
+        } else {
+            menuOpen2 = true;
+        }
+        localStorage.setItem("menuOpen2", menuOpen2);
+    })
+
+    $('#question-section-content').on('show.bs.dropdown', function () {
+        menuOpen1 = false;
+        localStorage.setItem("menuOpen1", menuOpen1);
+    })
+
     spinner = $("#course-content").html()
     loadChapters()
 

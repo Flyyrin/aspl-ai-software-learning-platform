@@ -5,6 +5,6 @@ namespace Business_Logic_Layer.Interfaces
     public interface ICodeDataAccess
     {
        DataTable GetCode(int student, int chapter);
-       int SaveCode(int student, int chapter, string code);
+        int SaveCode(int student, int chapter, string code, string output, string errorExplanation);
     }
 }

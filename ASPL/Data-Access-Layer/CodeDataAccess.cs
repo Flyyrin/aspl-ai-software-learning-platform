@@ -18,17 +18,17 @@ namespace Data_Access_Layer
             return data;
         }
 
-        public int SaveCode(int student, int chapter, string code)
+        public int SaveCode(int student, int chapter, string code, string output, string errorExplanation)
         {
             int rowsAffected = 0;
             DataTable data = dataAccess.ExecuteQuery($"SELECT * FROM student_code WHERE student_id = {student} AND chapter_id = {chapter}");
             if (data.Rows.Count > 0) {
                 Console.WriteLine("update");
-                rowsAffected = dataAccess.ExecuteNonQuery($"UPDATE student_code SET code = '{code}' WHERE student_id = {student} AND chapter_id = {chapter};");
+                rowsAffected = dataAccess.ExecuteNonQuery($"UPDATE student_code SET code = '{code}', output = '{output}', error_explanation = '{errorExplanation}' WHERE student_id = {student} AND chapter_id = {chapter};");
             }
             else
             {
-                rowsAffected = dataAccess.ExecuteNonQuery($"INSERT INTO student_code (student_id, chapter_id, code) VALUES ({student}, {chapter}, '{code}');");
+                rowsAffected = dataAccess.ExecuteNonQuery($"INSERT INTO student_code (student_id, chapter_id, code, output, error_explanation) VALUES ({student}, {chapter}, '{code}', '{output}', '{errorExplanation}');");
             }
             return rowsAffected;
         }
