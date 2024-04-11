@@ -1,4 +1,4 @@
-﻿using Business_Logic_Layer;
+﻿using Business_Logic_Layer.Models;
 using System.Globalization;
 
 namespace Presentation_Layer.Models

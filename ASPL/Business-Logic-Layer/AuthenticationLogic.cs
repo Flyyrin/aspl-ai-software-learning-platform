@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Security.Claims;
+using Business_Logic_Layer.Interfaces;
 
 namespace Business_Logic_Layer
 {
@@ -10,16 +11,18 @@ namespace Business_Logic_Layer
     {
         private string jwtToken = "k5{+j3gSjSvHkLF$MGL)o)!,~V47_Q4.)t]_1H8^M13{o3S0ML";
         private string jwtIssuer = "ASPL";
-        private readonly IAuthenticationDataAccess authenticationDataAccess;
+        private readonly IAuthenticationDataAccess _authenticationDataAccess;
         public AuthenticationLogic(IAuthenticationDataAccess authenticationDataAccess)
         {
-            authenticationDataAccess = authenticationDataAccess;
+            _authenticationDataAccess = authenticationDataAccess;
         }
 
         public string LoginUser(string username, string password)
         {
             string token = "";
-            DataTable result = authenticationDataAccess.LoginUser(username, password);
+            Console.Write("Logic Layer -> : ");
+            Console.WriteLine(_authenticationDataAccess);
+            DataTable result = _authenticationDataAccess.LoginUser(username, password);
             if (result.Rows.Count > 0)
             {
                 DataRow row = result.Rows[0];
@@ -56,13 +59,13 @@ namespace Business_Logic_Layer
             emailTaken = true;
             token = "";
 
-            usernameTaken = authenticationDataAccess.CheckIfUsernameExists(username);
-            emailTaken = authenticationDataAccess.CheckIfEmailExists(email);
+            usernameTaken = _authenticationDataAccess.CheckIfUsernameExists(username);
+            emailTaken = _authenticationDataAccess.CheckIfEmailExists(email);
 
             if (!usernameTaken && !emailTaken)
             {
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-                int rowsAffected = authenticationDataAccess.RegisterUser(username, email, passwordHash);
+                int rowsAffected = _authenticationDataAccess.RegisterUser(username, email, passwordHash);
                 Console.WriteLine(rowsAffected);
                 if (rowsAffected == 1)
                 {
@@ -72,9 +75,10 @@ namespace Business_Logic_Layer
             }
         }
 
-        public bool AuthenticateUser(string token)
+        public void AuthenticateUser(string token, out bool authenticated, out int id)
         {
-            bool authenticated = false;
+            authenticated = false;
+            id = 0;
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtToken));
 
@@ -90,13 +94,20 @@ namespace Business_Logic_Layer
                     ValidateLifetime = true
                 }, out SecurityToken validatedToken);
 
-                authenticated =  true;
+                if (validatedToken is JwtSecurityToken jwtSecurityToken)
+                {
+                    var userIdClaim = jwtSecurityToken.Claims.FirstOrDefault(c => c.Type == "id");
+                    if (userIdClaim != null && int.TryParse(userIdClaim.Value, out int userId))
+                    {
+                        authenticated = true;
+                        id = userId;
+                    }
+                }
             }
             catch (Exception)
             {
                 Console.WriteLine("error");
             }
-            return authenticated;
         }
     }
 }

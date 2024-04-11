@@ -1,4 +1,4 @@
-﻿namespace Business_Logic_Layer
+﻿namespace Business_Logic_Layer.Models
 {
     public class StudentCode
     {

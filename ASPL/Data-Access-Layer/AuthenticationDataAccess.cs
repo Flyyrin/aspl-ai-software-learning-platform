@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Business_Logic_Layer;
+using Business_Logic_Layer.Interfaces;
 
 namespace Data_Access_Layer
 {
@@ -33,6 +33,8 @@ namespace Data_Access_Layer
         public DataTable LoginUser(string username, string password)
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT password, id FROM students WHERE Username = '{username}'");
+            Console.Write("Data Access Layer -> : ");
+            Console.WriteLine("Working");
             return data;
         }
 

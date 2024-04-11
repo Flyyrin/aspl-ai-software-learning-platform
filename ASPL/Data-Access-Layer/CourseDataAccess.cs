@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Business_Logic_Layer;
+using Business_Logic_Layer.Interfaces;
 
 namespace Data_Access_Layer
 {

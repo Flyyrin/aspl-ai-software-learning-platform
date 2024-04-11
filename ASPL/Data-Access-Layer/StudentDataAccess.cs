@@ -1,5 +1,5 @@
 ﻿using System.Data;
-using Business_Logic_Layer;
+using Business_Logic_Layer.Interfaces;
 
 namespace Data_Access_Layer
 {
@@ -10,6 +10,12 @@ namespace Data_Access_Layer
         public StudentDataAccess()
         {
             dataAccess = new DataAccess();
+        }
+
+        public DataTable GetStudentInfo(int id)
+        {
+            DataTable data = dataAccess.ExecuteQuery($"SELECT * FROM students WHERE id = {id}");
+            return data;
         }
     }
 }

@@ -1,19 +1,21 @@
 ﻿using System.Data;
+using Business_Logic_Layer.Interfaces;
+using Business_Logic_Layer.Models;
 
 namespace Business_Logic_Layer
 {
     public class CourseLogic
     {
-        private readonly ICourseDataAccess courseDataAccess;
+        private readonly ICourseDataAccess _courseDataAccess;
         public CourseLogic(ICourseDataAccess courseDataAccess) {
-            courseDataAccess = courseDataAccess;
+            _courseDataAccess = courseDataAccess;
         }
 
         public List<Course> GetCourses()
         {
             List<Course> courses = new List<Course>();
 
-            DataTable result = courseDataAccess.GetCourses();
+            DataTable result = _courseDataAccess.GetCourses();
             foreach (DataRow row in result.Rows)
             {
                 courses.Add(new Course(Convert.ToInt32(row["id"]), row["name"].ToString(), row["description"].ToString(), row["icon"].ToString()));
@@ -26,7 +28,7 @@ namespace Business_Logic_Layer
         {
             List<Chapter> chapters = new List<Chapter>();
 
-            DataTable result = courseDataAccess.GetChapters(course);
+            DataTable result = _courseDataAccess.GetChapters(course);
             foreach (DataRow row in result.Rows)
             {
                 chapters.Add(new Chapter(Convert.ToInt32(row["id"]), row["name"].ToString(), row["description"].ToString()));

@@ -1,3 +1,15 @@
 .account-button {
     z-index: 1;
 }
+
+.dropdown-menu.account {
+    min-width: 20rem !important;
+}
+
+.account-icon {
+    margin-bottom: -6px;
+}
+
+.dropdown-item.highlight {
+    color: #5B1CBA !important;
+}

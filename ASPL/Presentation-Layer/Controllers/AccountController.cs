@@ -4,6 +4,8 @@ using System.Diagnostics;
 using Business_Logic_Layer;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.Extensions.Primitives;
+using Business_Logic_Layer.Interfaces;
+using Data_Access_Layer;
 
 namespace Presentation_Layer.Controllers
 {
@@ -35,6 +37,8 @@ namespace Presentation_Layer.Controllers
         {
             if (ModelState.IsValid)
             {
+                Console.Write("Presentation Layer -> : ");
+                Console.WriteLine(authenticationLogic);
                 string token = authenticationLogic.LoginUser(model.Username, model.Password);
                 if (token != "")
                 {

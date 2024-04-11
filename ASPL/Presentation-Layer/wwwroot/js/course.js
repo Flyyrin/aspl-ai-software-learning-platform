@@ -51,12 +51,15 @@ $(document).ready(function () {
             currentChapter--;
             localStorage.setItem("lastChapter", currentChapter);
             $("#current-chapter").text(currentChapter)
+            $("#chapter-dropdown").find("a").removeClass("selected")
+            $("#chapter-dropdown").find("a").eq(currentChapter - 1).addClass("selected")
             loadContent()
         }
     });
 });
 
 function loadContent() {
+    last_chapter = currentChapter
     alertMessage("Loading Content...")
     $("#course-content").html(spinner)
     $("#course-content").load("../content/" + currentCourse + "-" + currentChapter + ".html");
@@ -109,13 +112,10 @@ function loadChapters() {
     });
 }
 
-function loadCode() {
-    var chapter = $("#chapter-dropdown").find(".selected").attr("chapter")
-    console.log(chapter)
-}
-
 function loadCodeSnippet() {
-    $("#course-content").find("pre").before('<div class="snippet-header d-flex py-2 px-3 justify-content-end"><h3 class="clickable m-0 mr-3" id="snippetCopyCode"><i class="bi bi-clipboard" data-toggle="tooltip" data-placement="top" title="Copy code"></i><i class="bi bi-check2"></i></h3><h3 class="clickable m-0" id="snippetCopyCodeEditor"><i class="bi bi-code-slash" data-toggle="tooltip" data-placement="top" title="Copy to editor"></i><i class="bi bi-check2"></i></h3></div>')
+    if ($("#course-content").find("pre").prev(".snippet-header").length === 0) {
+        $("#course-content").find("pre").before('<div class="snippet-header d-flex py-2 px-3 justify-content-end"><h3 class="clickable m-0 mr-3" id="snippetCopyCode"><i class="bi bi-clipboard" data-toggle="tooltip" data-placement="top" title="Copy code"></i><i class="bi bi-check2"></i></h3><h3 class="clickable m-0" id="snippetCopyCodeEditor"><i class="bi bi-code-slash" data-toggle="tooltip" data-placement="top" title="Copy to editor"></i><i class="bi bi-check2"></i></h3></div>')
+    }
 
     $("#snippetCopyCode .bi-check2").hide();
     $("#course-content").on("click", "#snippetCopyCode", function () {
@@ -128,6 +128,7 @@ function loadCodeSnippet() {
         setTimeout(function () {
             $("#snippetCopyCode .bi-check2").hide();
             $("#snippetCopyCode .bi-clipboard").show();
+            saveCode()
         }, 2000);
     });
 
@@ -142,6 +143,7 @@ function loadCodeSnippet() {
         setTimeout(function () {
             $("#snippetCopyCodeEditor .bi-check2").hide();
             $("#snippetCopyCodeEditor .bi-code-slash").show();
+            saveCode()
         }, 2000);
     });
 }

@@ -28,27 +28,41 @@
                 <h1 class="clickable" id="accountDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
                     <i class="bi bi-person-circle"></i>
                 </h1>
-                <div class="dropdown-menu dropdown-menu-right p-0 ml-1" aria-labelledby="accountDropdown">
+                <div class="dropdown-menu dropdown-menu-right account p-0 ml-1" aria-labelledby="accountDropdown">
                     <a class="dropdown-item my-2 py-2">
                         <div class="row align-items-center">
-                            <div class="col-2 text-right checkbox-container pr-0 mr-0">
+                            <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
                                 <i class="bi bi-person-fill align-middle"></i>
                             </div>
                             <div class="col">
-                                @Model.Student.Username
+                                @Model.Student.Username 
                             </div>                     
                         </div>
                     </a>
                     <a class="dropdown-item my-2 py-2">
                         <div class="row align-items-center">
-                            <div class="col-2 text-right checkbox-container pr-0 mr-0">
+                            <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
                                 <i class="bi bi-envelope-at-fill align-middle"></i>
                             </div>
                             <div class="col">
                                 @Model.Student.Email
+
                             </div>
                         </div>
                     </a>
+                    @if (@Model.Student.Role == "admin")
+                    {
+                        <a class="dropdown-item my-2 py-2">
+                            <div class="row align-items-center">
+                                <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
+                                    <i class="bi bi-cpu-fill align-middle"></i>
+                                </div>
+                                <div class="col text-capitalize">
+                                    @Model.Student.Role
+                                </div>
+                            </div>
+                        </a>
+                    }
                     <hr class="m-0" />
                     <a class="dropdown-item my-2 py-2" href="/logout">
                         <div class="row align-items-center">
@@ -166,7 +180,7 @@
                 </div>
             </div>
             <div class="col-md-4 code-section p-0">
-                <textarea class="" id='editor'># Python Code Editor</textarea>
+                <textarea class="" id='editor'>Loading...</textarea>
                 <footer class="footer action-footer p-3 px-5">
                     <div class="align-items-center">
                         <button type="button" class="btn text-white d-inline runCode">
@@ -185,9 +199,9 @@
             </div>
             <div class="col-md-4 output-section">
                 <div class="container output overflow-auto px-4 py-3">
-                    <p class="mb-1">Enter a number: test</p>
-                    <p class="mb-1">You Entered: test</p>
-                    <p class="mb-1">Data type of num: int</p>
+                    <div id="output-content">
+                        <p>Loading...</p>
+                    </div>
                     <div class="explaination-section fixed-bottom position-absolute">
                         <nav class="navbar explaination-nav bg-dark clickable" data-toggle="collapse" data-target="#explaination-section-content" aria-controls="explaination-section-content" aria-expanded="false" aria-label="Toggle navigation"">
                             Error explanation
@@ -195,8 +209,8 @@
                         </nav>
                         <div class="collapse" id="explaination-section-content">
                           <div class="explaination-section-content overflow-auto px-4 py-3">
-                            <p>
-                                The error "SyntaxError: EOL while scanning string literal" typically occurs when a string literal is not properly terminated with a closing quotation mark. In the case of print("test), it's missing the closing quotation mark, causing the Python interpreter to encounter the end of the line (EOL) while scanning the string literal, resulting in a syntax error.
+                            <p id="error-explaination-content">
+                                Loading...
                             </p>
                           </div>
                         </div> 
