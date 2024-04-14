@@ -21,7 +21,6 @@ namespace Business_Logic_Layer
         {
             string token = "";
             Console.Write("Logic Layer -> : ");
-            Console.WriteLine(_authenticationDataAccess);
             DataTable result = _authenticationDataAccess.LoginUser(username, password);
             if (result.Rows.Count > 0)
             {
@@ -66,7 +65,6 @@ namespace Business_Logic_Layer
             {
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
                 int rowsAffected = _authenticationDataAccess.RegisterUser(username, email, passwordHash);
-                Console.WriteLine(rowsAffected);
                 if (rowsAffected == 1)
                 {
                     token = LoginUser(username, password);

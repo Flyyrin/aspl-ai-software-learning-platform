@@ -49,19 +49,16 @@ namespace Business_Logic_Layer
                     engine.Execute(code);
                     outputStream.Seek(0, SeekOrigin.Begin);
                     errorStream.Seek(0, SeekOrigin.Begin);
-                    output = new StreamReader(outputStream).ReadToEnd();
+                    output = "success:" + new StreamReader(outputStream).ReadToEnd();
                     var error = new StreamReader(errorStream).ReadToEnd();
-                    Console.WriteLine("Output from Python code:");
-                    Console.WriteLine(output);
                     if (!string.IsNullOrWhiteSpace(error))
                     {
-                        output = error;
-
+                        output = "error:" + error;
                     }
                 }
                 catch (Exception ex)
                 {
-                    output = ex.Message;
+                    output = "error:"+ ex.Message;
                 }
 
             }
@@ -73,7 +70,14 @@ namespace Business_Logic_Layer
                 //js
             }
 
-            return new StudentCode(code, output, "");
+
+            return new StudentCode(code, CorrectOutput(output), "");
+        }
+
+        private string CorrectOutput(string output)
+        {
+            output = output.Replace("'", "\"");
+            return output;
         }
 
     }

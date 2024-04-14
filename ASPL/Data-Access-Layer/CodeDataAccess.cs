@@ -23,7 +23,6 @@ namespace Data_Access_Layer
             int rowsAffected = 0;
             DataTable data = dataAccess.ExecuteQuery($"SELECT * FROM student_code WHERE student_id = {student} AND chapter_id = {chapter}");
             if (data.Rows.Count > 0) {
-                Console.WriteLine("update");
                 rowsAffected = dataAccess.ExecuteNonQuery($"UPDATE student_code SET code = '{code}', output = '{output}', error_explanation = '{errorExplanation}' WHERE student_id = {student} AND chapter_id = {chapter};");
             }
             else

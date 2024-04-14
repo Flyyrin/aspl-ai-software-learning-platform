@@ -38,7 +38,6 @@ namespace Presentation_Layer.Controllers
             if (ModelState.IsValid)
             {
                 Console.Write("Presentation Layer -> : ");
-                Console.WriteLine(authenticationLogic);
                 string token = authenticationLogic.LoginUser(model.Username, model.Password);
                 if (token != "")
                 {

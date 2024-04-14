@@ -56,7 +56,7 @@ function loadCode() {
 
                 editor.setValue(response["code"])
                 $("#output-content").text(response["output"])
-                $("#error-explaination-content").text(response["errorExplanation"])
+                $("#error-explaination-content").html(response["errorExplanation"])
 
                 output = response["output"]
                 errorExplanation = response["errorExplanation"]
@@ -111,8 +111,12 @@ function runCode() {
                 code: code
             },
             success: function (response) {
+                var error = splitOnFirstOccurrence(response, ":")[0] == "error"
+                response = splitOnFirstOccurrence(response, ":")[1]
                 output = response
                 $("#output-content").text(output)
+                console.log("run code")
+                console.log(output)
                 saveCode()
                 $(".runCode .text").show();
                 $(".runCode .spinner").hide();
@@ -125,7 +129,12 @@ function runCode() {
                     });
                     $('.nav-pills .nav-item .nav-link').last().addClass("active");
                 }
-                loadErrorExplaination()
+
+                if (error) {
+                    loadErrorExplaination()
+                } else {
+                    $("#error-explaination-content").text("There is no error in this code, the code was written correctly, good job!")
+                }
                 
             },
             error: function (xhr, status, error) {
@@ -147,8 +156,17 @@ function loadErrorExplaination() {
 function loadErrorExplaination2(response) {
     errorExplanation = response
     saveCode()
-    $("#error-explaination-content").text(response)
+    $("#error-explaination-content").html(response)
     $("#error-explaination-placeholder").hide()
     $("#error-explaination-content").show()
-    console.log(response)
+    hljs.highlightAll();
+}
+
+function splitOnFirstOccurrence(inputString, delimiter) {
+    var index = inputString.indexOf(delimiter);
+    if (index !== -1) {
+        return [inputString.substring(0, index), inputString.substring(index + delimiter.length)];
+    } else {
+        return [inputString];
+    }
 }

@@ -16,8 +16,6 @@ namespace Data_Access_Layer
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT username FROM students WHERE username = '{username}'");
             Console.Write("usernameTaken: ");
-            Console.WriteLine(data.Rows.Count == 1);
-            Console.WriteLine(data);
             return data.Rows.Count == 1;
         }
 
@@ -25,16 +23,12 @@ namespace Data_Access_Layer
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT email FROM students WHERE email = '{email}'");
             Console.Write("emailTaken: ");
-            Console.WriteLine(data.Rows.Count == 1);
-            Console.WriteLine(data);
             return data.Rows.Count == 1;
         }
 
         public DataTable LoginUser(string username, string password)
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT password, id FROM students WHERE Username = '{username}'");
-            Console.Write("Data Access Layer -> : ");
-            Console.WriteLine("Working");
             return data;
         }
 

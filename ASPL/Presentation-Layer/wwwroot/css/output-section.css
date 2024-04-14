@@ -14,9 +14,13 @@
 }
 
 .explaination-section-content {
-    height: 10rem;
+    height: 15rem;
 }
 
 .explaination-nav {
     background-color: #181818 !important;
+}
+
+#error-explaination-content pre {
+    margin-top: 1rem;
 }

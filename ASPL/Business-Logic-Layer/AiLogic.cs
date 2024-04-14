@@ -10,6 +10,8 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using static IronPython.Modules.PythonRegex;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 
 namespace Business_Logic_Layer
 {
@@ -85,11 +87,19 @@ namespace Business_Logic_Layer
             }
         }
 
+        private string CorrectExplanation(string explanation)
+        {
+            explanation = Regex.Replace(explanation, @"```(.*?)```", match => "<pre><code class='language-python'>" + match.Groups[1].Value + "\n</code></pre>", RegexOptions.Singleline);
+            explanation = Regex.Replace(explanation, @"`(.*?)`", match => "<code>" + match.Groups[1].Value + "</code>", RegexOptions.Singleline);
+            explanation = explanation.Replace("'", "\"");
+            return explanation;
+        }
+
         public async Task<string> getErrorExplanation(string code, string error)
         {
             AddUserContent($"when running this code: {code}\ni got output: {error}\nif this is an error give me an explaination about why this error occurs, when there is no error you compliment the student, dont use the code in your respond if there is no error.");
             string response = await MakeRequest();
-            Console.WriteLine(response);
+            response = CorrectExplanation(response);
             return response;
         }
     }
