@@ -20,7 +20,6 @@ namespace Business_Logic_Layer
         public string LoginUser(string username, string password)
         {
             string token = "";
-            Console.Write("Logic Layer -> : ");
             DataTable result = _authenticationDataAccess.LoginUser(username, password);
             if (result.Rows.Count > 0)
             {
@@ -63,8 +62,11 @@ namespace Business_Logic_Layer
 
             if (!usernameTaken && !emailTaken)
             {
+                Random random = new Random();
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-                int rowsAffected = _authenticationDataAccess.RegisterUser(username, email, passwordHash);
+                int randomNumber = random.Next(1, 4);
+                string avatar = $"{randomNumber}-0-0";
+                int rowsAffected = _authenticationDataAccess.RegisterUser(username, email, passwordHash, avatar);
                 if (rowsAffected == 1)
                 {
                     token = LoginUser(username, password);
@@ -104,7 +106,7 @@ namespace Business_Logic_Layer
             }
             catch (Exception)
             {
-                Console.WriteLine("error");
+                Console.WriteLine("Authentication Error");
             }
         }
     }

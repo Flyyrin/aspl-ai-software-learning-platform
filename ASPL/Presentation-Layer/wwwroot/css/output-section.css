@@ -24,3 +24,7 @@
 #error-explaination-content pre {
     margin-top: 1rem;
 }
+
+#output-content p {
+    margin-bottom: 0;
+}

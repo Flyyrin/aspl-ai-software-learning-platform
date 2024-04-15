@@ -1,4 +1,4 @@
-.course-section {
+.course-section, .modal-content {
     background-color: #1F1F1F;
 }
 
@@ -72,6 +72,7 @@
     border: 1px solid #ffffff22;
     border-radius: 7px;
     font-size: 24px;
+    resize: none;
 }
 
 .chat-box:focus {

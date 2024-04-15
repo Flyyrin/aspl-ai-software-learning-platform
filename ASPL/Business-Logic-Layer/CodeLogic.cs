@@ -49,11 +49,15 @@ namespace Business_Logic_Layer
                     engine.Execute(code);
                     outputStream.Seek(0, SeekOrigin.Begin);
                     errorStream.Seek(0, SeekOrigin.Begin);
-                    output = "success:" + new StreamReader(outputStream).ReadToEnd();
+                    output = new StreamReader(outputStream).ReadToEnd();
+                    Console.WriteLine(output);
                     var error = new StreamReader(errorStream).ReadToEnd();
-                    if (!string.IsNullOrWhiteSpace(error))
+                    if (string.IsNullOrWhiteSpace(output))
                     {
-                        output = "error:" + error;
+                        output = "error:Code has no output";
+                    } else
+                    {
+                        output = "success:" + output;
                     }
                 }
                 catch (Exception ex)

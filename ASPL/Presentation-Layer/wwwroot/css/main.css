@@ -84,3 +84,7 @@ html, body {
 .invalid {
     color: rgb(186, 28, 28);
 }
+
+.h-33 {
+    height: 33%;
+}

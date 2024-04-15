@@ -55,7 +55,7 @@ function loadCode() {
                 }
 
                 editor.setValue(response["code"])
-                $("#output-content").text(response["output"])
+                $("#output-content").html(response["output"])
                 $("#error-explaination-content").html(response["errorExplanation"])
 
                 output = response["output"]
@@ -102,7 +102,7 @@ function saveCode() {
 }
 
 function runCode() {
-    if (code != "") {
+    if (code.trim() !== '') {
         $.ajax({
             url: 'app/runCode',
             method: 'POST',
@@ -113,8 +113,13 @@ function runCode() {
             success: function (response) {
                 var error = splitOnFirstOccurrence(response, ":")[0] == "error"
                 response = splitOnFirstOccurrence(response, ":")[1]
+                var paragraphs = response.split('\n').map(function (line) {
+                    return '<p>' + line + '</p>';
+                });
+                response = paragraphs.join('');
+
                 output = response
-                $("#output-content").text(output)
+                $("#output-content").html(output)
                 console.log("run code")
                 console.log(output)
                 saveCode()
@@ -133,7 +138,9 @@ function runCode() {
                 if (error) {
                     loadErrorExplaination()
                 } else {
-                    $("#error-explaination-content").text("There is no error in this code, the code was written correctly, good job!")
+                    errorExplanation = "There is no error in this code, the code was written correctly, good job!"
+                    $("#error-explaination-content").text(errorExplanation)
+                    saveCode()
                 }
                 
             },

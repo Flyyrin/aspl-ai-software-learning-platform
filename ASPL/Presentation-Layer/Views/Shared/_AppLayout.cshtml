@@ -1,247 +1,293 @@
 ﻿@model Presentation_Layer.Models.AppViewModel
-
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ASPL</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
-    <link rel="stylesheet" href="https://codemirror.net/5/theme/ayu-dark.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
-    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/course-section.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/code-section.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/output-section.css" asp-append-version="true" />
-</head>
-<body>
-    <div class="container-fluid h-100">
-        <div class="position-absolute end-0 mt-1 mr-1 mr-md-3 account-button">
-
-           
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>@ViewData["Title"] - ASPL</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+      <link rel="stylesheet" href="https://codemirror.net/5/theme/ayu-dark.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/a11y-dark.min.css">
+      <link rel="stylesheet" href="~/css/main.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/app.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/course-section.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/code-section.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/css/output-section.css" asp-append-version="true" />
+   </head>
+   <body>
+      <div class="container-fluid h-100">
+         <div class="position-absolute end-0 mt-1 mr-1 mr-md-3 account-button">
             <div class="dropdown">
-                <h1 class="clickable" id="accountDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-person-circle"></i>
-                </h1>
-                <div class="dropdown-menu dropdown-menu-right account p-0 ml-1" aria-labelledby="accountDropdown">
-                    <a class="dropdown-item my-2 py-2">
-                        <div class="row align-items-center">
-                            <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
-                                <i class="bi bi-person-fill align-middle"></i>
-                            </div>
-                            <div class="col">
-                                @Model.Student.Username 
-                            </div>                     
+               <h1 class="clickable" id="accountDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                  <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded-circle avatar">
+               </h1>
+               <div class="dropdown-menu dropdown-menu-right account p-0 ml-1" aria-labelledby="accountDropdown">
+                  <a class="dropdown-item my-2 py-2">
+                     <div class="row align-items-center">
+                        <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
+                           <i class="bi bi-person-fill align-middle"></i>
                         </div>
-                    </a>
-                    <a class="dropdown-item my-2 py-2">
-                        <div class="row align-items-center">
-                            <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
-                                <i class="bi bi-envelope-at-fill align-middle"></i>
-                            </div>
-                            <div class="col">
-                                @Model.Student.Email
-
-                            </div>
+                        <div class="col ellipsis" data-toggle="tooltip" data-placement="left" title="@Model.Student.Username">
+                           @Model.Student.Username 
                         </div>
-                    </a>
-                    @if (@Model.Student.Role == "admin")
-                    {
-                        <a class="dropdown-item my-2 py-2">
-                            <div class="row align-items-center">
-                                <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
-                                    <i class="bi bi-cpu-fill align-middle"></i>
-                                </div>
-                                <div class="col text-capitalize">
-                                    @Model.Student.Role
-                                </div>
-                            </div>
-                        </a>
-                    }
-                    <hr class="m-0" />
-                    <a class="dropdown-item my-2 py-2" href="/logout">
-                        <div class="row align-items-center">
-                            <div class="col-3 text-right checkbox-container d-none">
-                                <i class="bi bi-envelope-at-fill"></i>
-                            </div>
-                            <div class="col">
-                                Logout
-                            </div>
+                     </div>
+                  </a>
+                  <a class="dropdown-item my-2 py-2">
+                     <div class="row align-items-center">
+                        <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
+                           <i class="bi bi-envelope-at-fill align-middle"></i>
                         </div>
-                    </a>
-                </div>
+                        <div class="col ellipsis" data-toggle="tooltip" data-placement="left" title="@Model.Student.Email">
+                           @Model.Student.Email
+                        </div>
+                     </div>
+                  </a>
+                  @if (@Model.Student.Role == "admin")
+                  {
+                  <a class="dropdown-item my-2 py-2">
+                     <div class="row align-items-center">
+                        <div class="col-2 text-right checkbox-container account-icon pr-0 mr-0">
+                           <i class="bi bi-cpu-fill align-middle"></i>
+                        </div>
+                        <div class="col text-capitalize">
+                           @Model.Student.Role
+                        </div>
+                     </div>
+                  </a>
+                  }
+                  <hr class="m-0" />
+                  <a class="dropdown-item my-2 py-2" data-toggle="modal" data-target="#avatarModal">
+                     <div class="row align-items-center">
+                        <div class="col-3 text-right checkbox-container d-none">
+                           <i class="bi bi-envelope-at-fill"></i>
+                        </div>
+                        <div class="col">
+                           Change avatar
+                        </div>
+                     </div>
+                  </a>
+                  <a class="dropdown-item my-2 py-2" href="/logout">
+                     <div class="row align-items-center">
+                        <div class="col-3 text-right checkbox-container d-none">
+                           <i class="bi bi-envelope-at-fill"></i>
+                        </div>
+                        <div class="col">
+                           Logout
+                        </div>
+                     </div>
+                  </a>
+               </div>
             </div>
-
-        </div>
-        <div class="row h-100">
+         </div>
+         <div class="row h-100">
             <nav class="navbar tab-header navbar-dark text-center w-100 d-md-none pb-0">
-                <ul class="nav nav-pills text-center mx-auto justify-content-center" id="pills-tab" role="tablist">
-                    <li class="nav-item">
-                      <a class="nav-link active" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Course</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">Editor</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" data-toggle="pill" role="tab" aria-controls="pills-contact" aria-selected="false">Output</a>
-                    </li>
-                  </ul>
+               <ul class="nav nav-pills text-center mx-auto justify-content-center" id="pills-tab" role="tablist">
+                  <li class="nav-item">
+                     <a class="nav-link active" data-toggle="pill" role="tab" aria-controls="pills-home" aria-selected="true">Course</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false">Editor</a>
+                  </li>
+                  <li class="nav-item">
+                     <a class="nav-link" data-toggle="pill" role="tab" aria-controls="pills-contact" aria-selected="false">Output</a>
+                  </li>
+               </ul>
             </nav>
             <div class="col-md-4 p-0 course-section">
-                <nav class="navbar header navbar-dark">
-                    <div class="d-flex align-items-center row">
-                        <div class="col-xl-4 col-3">
-                            <div class="nav-item dropdown active">
-                                <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"  aria-haspopup="true" aria-expanded="false">
-                                    <img src="img/courses/@{@Model.Courses[Model.LastCourse-1].Icon}.svg" class="d-xl-none" id="course-image" height="30" alt="">
-                                    <span class="d-none d-xl-inline" id="course-name">@{@Model.Courses[Model.LastCourse-1].Name}</span> 
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                                <div class="dropdown-menu p-0 ml-1" id="course-dropdown" aria-labelledby="navbarDropdown">
-
-                                    @foreach (var course in Model.Courses)
-                                    {
-                                        <a class="dropdown-item my-2 py-2" course="@course.Id">
-                                            <div class="row align-items-center">
-                                                <div class="col-6" data-toggle="tooltip" data-placement="left" title="@course.Desciption">
-                                                    <img src="img/courses/@{@course.Icon}.svg" class="pr-2" height="30" alt="">
-                                                    <span id="list-course-name">@course.Name</span>
-                                                </div>
-                                                <div class="col text-right">
-                                                    <span class="badge progress-badge">7/12</span>
-                                                </div>
-                                                <div class="col text-right checkbox-container">
-                                                    @if (course == Model.Courses[Model.LastCourse-1])
-                                                    {
-                                                        <i class="bi bi-check-circle w-100 align-middle"></i>
-                                                    }
-                                                    else
-                                                    {
-                                                        <i class="bi bi-circle w-100 align-middle"></i>
-                                                    }
-                                                </div>
-                                            </div>
-                                        </a>
-                                    }
-
-                                </div>
-                            </div>
+               <nav class="navbar header navbar-dark">
+                  <div class="d-flex align-items-center row">
+                     <div class="col-xl-4 col-3">
+                        <div class="nav-item dropdown active">
+                           <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside"  aria-haspopup="true" aria-expanded="false">
+                           <img src="img/courses/@{@Model.Courses[Model.LastCourse-1].Icon}.svg" class="d-xl-none" id="course-image" height="30" alt="">
+                           <span class="d-none d-xl-inline" id="course-name">@{@Model.Courses[Model.LastCourse-1].Name}</span> 
+                           <i class="bi bi-chevron-down"></i>
+                           </span>
+                           <div class="dropdown-menu p-0 ml-1" id="course-dropdown" aria-labelledby="navbarDropdown">
+                              @foreach (var course in Model.Courses)
+                              {
+                              <a class="dropdown-item my-2 py-2" course="@course.Id">
+                                 <div class="row align-items-center">
+                                    <div class="col-6" data-toggle="tooltip" data-placement="left" title="@course.Desciption">
+                                       <img src="img/courses/@{@course.Icon}.svg" class="pr-2" height="30" alt="">
+                                       <span id="list-course-name">@course.Name</span>
+                                    </div>
+                                    <div class="col text-right">
+                                       <span class="badge progress-badge">7/12</span>
+                                    </div>
+                                    <div class="col text-right checkbox-container">
+                                       @if (course == Model.Courses[Model.LastCourse-1])
+                                       {
+                                       <i class="bi bi-check-circle w-100 align-middle"></i>
+                                       }
+                                       else
+                                       {
+                                       <i class="bi bi-circle w-100 align-middle"></i>
+                                       }
+                                    </div>
+                                 </div>
+                              </a>
+                              }
+                           </div>
                         </div>
-                        <div class="col-xl-4 col-6 nav-item active text-center">
-                            <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
-                                <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
-                                <span class="badge progress-badge">
-                                    <span id="current-chapter">0</span>/<span id="chapter-count">0</span>
-                                </span>
-                                <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
-                            </h3>
+                     </div>
+                     <div class="col-xl-4 col-6 nav-item active text-center">
+                        <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
+                           <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
+                           <span class="badge progress-badge">
+                           <span id="current-chapter">0</span>/<span id="chapter-count">0</span>
+                           </span>
+                           <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                        </h3>
+                     </div>
+                     <div class="col-xl-4 col-3">
+                        <div class="nav-item dropdown active">
+                           <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
+                              <h2 class="text-right m-0">
+                                 <i class="bi bi-list clickable"></i>
+                              </h2>
+                           </span>
+                           <div class="dropdown-menu dropdown-menu-right p-0 mr-1" aria-labelledby="navbarDropdown" id="chapter-dropdown"></div>
                         </div>
-                        <div class="col-xl-4 col-3">
-                            <div class="nav-item dropdown active">
-                                <span class="clickable text-sm-left text-center" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                                    <h2 class="text-right m-0">
-                                        <i class="bi bi-list clickable"></i>
-                                    </h2>
-                                </span>
-                                <div class="dropdown-menu dropdown-menu-right p-0 mr-1" aria-labelledby="navbarDropdown" id="chapter-dropdown"></div>
-                            </div>
+                     </div>
+                  </div>
+               </nav>
+               <div class="container course m-0 p-0">
+                  <div class="h-100 overflow-auto px-4 py-3" id="course-content">
+                     <div class="h-100 w-100 align-content-center align-items-center text-center">
+                        <div class="spinner spinner-border text-light" role="status">
+                           <span class="sr-only">Loading...</span>
                         </div>
-                    </div>
-                </nav>
-                <div class="container course m-0 p-0">
-                    <div class="h-100 overflow-auto px-4 py-3" id="course-content">
-                        <div class="h-100 w-100 align-content-center align-items-center text-center">
-                            <div class="spinner spinner-border text-light" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="question-section fixed-bottom position-absolute">
-                        <nav class="navbar question-nav bg-dark clickable" data-toggle="collapse" data-target="#question-section-content" aria-controls="question-section-content" aria-expanded="false" aria-label="Toggle navigation"">
-                            Ask question
-                            <i class="bi bi-chevron-down float-right"></i>
-                        </nav>
-                        <div class="collapse" id="question-section-content">
-                          <div class="container question-section-content overflow-auto px-4 py-3">
-                            <p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p><p>-</p>
-                          </div>
-                          <footer class="footer">
-                            <div class="container pb-3 px-xl-5 text-center">
-                                <input type="text" class="form-control chat-box" placeholder="Message...">
-                            </div>
-                          </footer>
-                        </div> 
-                    </div>
-                </div>
+                     </div>
+                  </div>
+                  <div class="question-section fixed-bottom position-absolute">
+                     <nav class="navbar question-nav bg-dark clickable" data-toggle="collapse" data-target="#question-section-content" aria-controls="question-section-content" aria-expanded="false" aria-label="Toggle navigation"">
+                        Ask question
+                        <i class="bi bi-chevron-down float-right"></i>
+                     </nav>
+                     <div class="collapse" id="question-section-content">
+                        <div class="container question-section-content overflow-auto px-5 py-3"></div>
+                        <footer class="footer">
+                           <div class="container pb-3 px-xl-5 text-center">
+                              <textarea class="form-control chat-box w-100" rows="2" placeholder="Message..."></textarea>
+                           </div>
+                        </footer>
+                     </div>
+                  </div>
+               </div>
             </div>
             <div class="col-md-4 code-section p-0">
-                <textarea class="" id='editor'>Loading...</textarea>
-                <footer class="footer action-footer p-3 px-5">
-                    <div class="align-items-center">
-                        <button type="button" class="btn text-white d-inline runCode">
-                            <div class="spinner spinner-border text-light" role="status">
-                                <span class="sr-only">Loading...</span>
-                            </div>
-                            <span class="text" data-toggle="tooltip" data-placement="top" title="Run code">Run</span>
-                        </button>
-                        <div class="d-inline clickable float-right copyCode">
-                            <i class="bi bi-clipboard" data-toggle="tooltip" data-placement="top" title="Copy code"></i>
-                            <i class="bi bi-check2"></i>
+               <textarea class="" id='editor'>Loading...</textarea>
+               <footer class="footer action-footer p-3 px-5">
+                  <div class="align-items-center">
+                     <button type="button" class="btn text-white d-inline runCode">
+                        <div class="spinner spinner-border text-light" role="status">
+                           <span class="sr-only">Loading...</span>
                         </div>
-                    </div>
-                </footer>
-                <div class="alert">test</div>
+                        <span class="text" data-toggle="tooltip" data-placement="top" title="Run code">Run</span>
+                     </button>
+                     <div class="d-inline clickable float-right copyCode">
+                        <i class="bi bi-clipboard" data-toggle="tooltip" data-placement="top" title="Copy code"></i>
+                        <i class="bi bi-check2"></i>
+                     </div>
+                  </div>
+               </footer>
+               <div class="alert">test</div>
             </div>
             <div class="col-md-4 output-section">
-                <div class="container output overflow-auto px-4 py-3">
-                    <div id="output-content">Output</div>
-                    <div class="explaination-section fixed-bottom position-absolute">
-                        <nav class="navbar explaination-nav bg-dark clickable" data-toggle="collapse" data-target="#explaination-section-content" aria-controls="explaination-section-content" aria-expanded="false" aria-label="Toggle navigation"">
-                            Error explanation
-                            <i class="bi bi-chevron-down float-right"></i>
-                        </nav>
-                        <div class="collapse" id="explaination-section-content">
-                          <div class="explaination-section-content overflow-auto px-4 py-3">
-                            <p id="error-explaination-content"></p>
-                            <div id="error-explaination-placeholder">
-                                <div class="align-content-center align-items-center text-center">
-                                    <div class="spinner spinner-border text-light" role="status">
-                                        <span class="sr-only">Loading...</span>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div> 
-                    </div>
-                </div>
+               <div class="container output overflow-auto px-4 py-3">
+                  <div id="output-content">Output</div>
+                  <div class="explaination-section fixed-bottom position-absolute">
+                     <nav class="navbar explaination-nav bg-dark clickable" data-toggle="collapse" data-target="#explaination-section-content" aria-controls="explaination-section-content" aria-expanded="false" aria-label="Toggle navigation"">
+                        Error explanation
+                        <i class="bi bi-chevron-down float-right"></i>
+                     </nav>
+                     <div class="collapse" id="explaination-section-content">
+                        <div class="explaination-section-content overflow-auto px-4 py-3">
+                           <p id="error-explaination-content"></p>
+                           <div id="error-explaination-placeholder">
+                              <div class="align-content-center align-items-center text-center">
+                                 <div class="spinner spinner-border text-light" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-    </div>
-
-    @RenderBody()
-
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
-    <script src="https://codemirror.net/5/mode/python/python.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/main.js" asp-append-version="true"></script>
-    <script src="~/js/alert.js" asp-append-version="true"></script>
-    <script src="~/js/chat.js" asp-append-version="true"></script>
-    <script src="~/js/codeEditor.js" asp-append-version="true"></script>
-    <script src="~/js/code.js" asp-append-version="true"></script>
-    <script src="~/js/resize.js" asp-append-version="true"></script>
-    <script src="~/js/course.js" asp-append-version="true"></script>
-    <script src="~/js/aiResponse.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-</body>
+         </div>
+         <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="avatarModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+               <div class="modal-content">
+                  <div class="modal-header border-bottom-0">
+                     <h5 class="modal-title" id="avatarModalTitle">Change avatar</h5>
+                  </div>
+                  <div class="modal-body">
+                     <div class="row">
+                        <div class="col">
+                           <div class="row h-33">
+                              <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
+                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
+                                 <img src="img/avatars/hats/1.png" class="rounded w-25">
+                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                              </h3>
+                           </div>
+                           <div class="row h-33">
+                              <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
+                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
+                                        <img src="img/avatars/faces/1.png" class="rounded w-25">
+                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                              </h3>
+                           </div>
+                           <div class="row h-33">
+                              <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
+                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
+                                        <img src="img/avatars/bodies/1.png" class="rounded w-25">
+                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                              </h3>
+                           </div>
+                        </div>
+                        <div class="col">
+                           <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded w-100">
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer border-top-0">
+                     <button type="button" class="btn text-white" data-dismiss="modal">Close</button>
+                     <button type="button" class="btn text-white">Save changes</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      @RenderBody()
+      <script>
+         studentName = "@Model.Student.Username"
+         studentAvatar = "@Model.Student.Avatar"
+      </script>
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+      <script src="https://codemirror.net/5/mode/python/python.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+      <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="~/js/main.js" asp-append-version="true"></script>
+      <script src="~/js/alert.js" asp-append-version="true"></script>
+      <script src="~/js/chat.js" asp-append-version="true"></script>
+      <script src="~/js/codeEditor.js" asp-append-version="true"></script>
+      <script src="~/js/code.js" asp-append-version="true"></script>
+      <script src="~/js/resize.js" asp-append-version="true"></script>
+      <script src="~/js/course.js" asp-append-version="true"></script>
+      <script src="~/js/aiResponse.js" asp-append-version="true"></script>
+      @await RenderSectionAsync("Scripts", required: false)
+   </body>
 </html>

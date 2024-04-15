@@ -13,3 +13,13 @@
 .dropdown-item.highlight {
     color: #5B1CBA !important;
 }
+
+.avatar {
+    width: 3rem;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -1,11 +1,65 @@
-$(document).ready(function(){
+﻿$(document).ready(function () {
+    addAiChat("👋 Welcome, i am Garry!\nNeed help with your courses, code, output, or errors ? I've got you covered!\n📘 Courses: I'll guide you through your courses.\n💻 Code: Stuck on code ? Let's debug it together.\n🔍 Output: Confused about output ? I'll decode it for you.\n❌ Error: Hit an error ? I'll help you fix it.\nJust ask, and I'll be here to assist you every step of the way! 🚀")
+
     $('.chat-box').on("keypress", function(e) {
-        if (e.keyCode == 13) {
+        if (e.keyCode == 13 && !event.shiftKey) {
             var question = $(".chat-box").val();
-            $(".chat-box").val("");
-            console.log(question);
-            console.log("Respond");
-            return false;
+            if (question.trim() !== '') {
+                $(".chat-box").val("");
+                addStudentChat(question)
+                return false;
+            }
         }
     });
 });
+
+function addStudentChat(message) {
+    var htmlMessage = ""
+    $.each(message.split("\n"), function (index, line) {
+        htmlMessage += "<p class='mb-2'>"+ line +"</p>"
+    });
+
+    var messageTemplate = `
+    <div class="row mb-4">
+        <div class="col-2 p-0 pr-2">
+            <img src="img/avatars/jerro/${studentAvatar}.png" class="rounded-circle mx-auto d-block w-75">
+        </div>
+        <div class="col p-0">
+            <p class="font-weight-bold mb-0">You - ${studentName}</p>
+            <div class="message-content">
+                ${htmlMessage}
+            </div>
+        </div>
+    </div>
+    `
+    $(".question-section-content").append(messageTemplate)
+    scrollToBottom()
+}
+
+function addAiChat(message) {
+    var htmlMessage = ""
+    $.each(message.split("\n"), function (index, line) {
+        htmlMessage += "<p class='mb-2'>" + line + "</p>"
+    });
+
+    var messageTemplate = `
+    <div class="row mb-4">
+        <div class="col-2 p-0 pr-2">
+            <img src="img/avatars/garry.png" class="rounded-circle mx-auto d-block w-75">
+        </div>
+        <div class="col p-0">
+            <p class="font-weight-bold mb-0">Garry AI</p>
+            <div class="message-content">
+                ${htmlMessage}
+            </div>
+        </div>
+    </div>
+    `
+    $(".question-section-content").append(messageTemplate)
+    scrollToBottom()
+}
+
+function scrollToBottom() {
+    var chat = $('.question-section-content');
+    chat.scrollTop(chat[0].scrollHeight);
+}

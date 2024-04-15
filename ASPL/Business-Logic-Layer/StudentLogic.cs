@@ -15,7 +15,7 @@ namespace Business_Logic_Layer
         public Student GetStudentInfo(int id)
         {
             DataTable result = _studentDataAccess.GetStudentInfo(id);
-            Student student = new Student(id, result.Rows[0]["username"].ToString(), result.Rows[0]["email"].ToString(), result.Rows[0]["role"].ToString());
+            Student student = new Student(id, result.Rows[0]["username"].ToString(), result.Rows[0]["email"].ToString(), result.Rows[0]["role"].ToString(), result.Rows[0]["avatar"].ToString());
 
             return student;
         }

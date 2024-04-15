@@ -32,9 +32,9 @@ namespace Data_Access_Layer
             return data;
         }
 
-        public int RegisterUser(string username, string email, string password)
+        public int RegisterUser(string username, string email, string password, string avatar)
         {
-            int rowsAffected = dataAccess.ExecuteNonQuery($"INSERT INTO students (username, email, password) VALUES ('{username}', '{email}', '{password}')");
+            int rowsAffected = dataAccess.ExecuteNonQuery($"INSERT INTO students (username, email, password, avatar) VALUES ('{username}', '{email}', '{password}', '{avatar}')");
             return rowsAffected;
         }
     }
