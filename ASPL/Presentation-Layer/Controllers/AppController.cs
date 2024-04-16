@@ -98,5 +98,18 @@ namespace Presentation_Layer.Controllers
             }
             return Content("No Access");
         }
+
+        [HttpPost]
+        public IActionResult SaveAvatar(string avatar)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                bool success = studentLogic.SaveAvatar(id, avatar);
+                return Content("{status:+ " + success + "}");
+            }
+            return Content("No Access");
+        }
     }
 }

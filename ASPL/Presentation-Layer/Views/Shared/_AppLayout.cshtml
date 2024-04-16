@@ -23,7 +23,7 @@
          <div class="position-absolute end-0 mt-1 mr-1 mr-md-3 account-button">
             <div class="dropdown">
                <h1 class="clickable" id="accountDropdown" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
-                  <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded-circle avatar">
+                  <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded-circle avatar" id="avatar">
                </h1>
                <div class="dropdown-menu dropdown-menu-right account p-0 ml-1" aria-labelledby="accountDropdown">
                   <a class="dropdown-item my-2 py-2">
@@ -230,37 +230,37 @@
                   </div>
                   <div class="modal-body">
                      <div class="row">
-                        <div class="col">
+                        <div class="col" id="avatarContainer">
+                            <div class="row h-33">
+                                <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
+                                    <i class="bi bi-chevron-left clickable" id="avatar-control" part="hat" action="prev"></i>
+                                    <img src="img/avatars/hats/1.png" class="rounded w-25" id="avatarHat">
+                                    <i class="bi bi-chevron-right clickable" id="avatar-control" part="hat" action="next"></i>
+                                </h3>
+                           </div>
                            <div class="row h-33">
                               <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
-                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
-                                 <img src="img/avatars/hats/1.png" class="rounded w-25">
-                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                                <i class="bi bi-chevron-left clickable" id="avatar-control" part="face" action="prev"></i>
+                                <img src="img/avatars/faces/1.png" class="rounded w-25" id="avatarFace">
+                                <i class="bi bi-chevron-right clickable" id="avatar-control" part="face" action="next"></i>
                               </h3>
                            </div>
                            <div class="row h-33">
                               <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
-                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
-                                        <img src="img/avatars/faces/1.png" class="rounded w-25">
-                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
-                              </h3>
-                           </div>
-                           <div class="row h-33">
-                              <h3 class="m-0 d-flex align-items-center content-align-center justify-content-center">
-                                 <i class="bi bi-chevron-left clickable" id="chapter-prev"></i>
-                                        <img src="img/avatars/bodies/1.png" class="rounded w-25">
-                                 <i class="bi bi-chevron-right clickable" id="chapter-next"></i>
+                                <i class="bi bi-chevron-left clickable" id="avatar-control" part="body" action="prev"></i>
+                                <img src="img/avatars/bodies/1.png" class="rounded w-25" id="avatarBody">
+                                <i class="bi bi-chevron-right clickable" id="avatar-control" part="body" action="next"></i>
                               </h3>
                            </div>
                         </div>
                         <div class="col">
-                           <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded w-100">
+                           <img src="img/avatars/jerro/@{@Model.Student.Avatar}.png" class="rounded w-100" id="avatarPreview">
                         </div>
                      </div>
                   </div>
                   <div class="modal-footer border-top-0">
                      <button type="button" class="btn text-white" data-dismiss="modal">Close</button>
-                     <button type="button" class="btn text-white">Save changes</button>
+                        <button type="button" class="btn text-white" id="avatar-save" data-dismiss="modal">Save changes</button>
                   </div>
                </div>
             </div>
@@ -288,6 +288,7 @@
       <script src="~/js/resize.js" asp-append-version="true"></script>
       <script src="~/js/course.js" asp-append-version="true"></script>
       <script src="~/js/aiResponse.js" asp-append-version="true"></script>
+      <script src="~/js/avatar.js" asp-append-version="true"></script>
       @await RenderSectionAsync("Scripts", required: false)
    </body>
 </html>

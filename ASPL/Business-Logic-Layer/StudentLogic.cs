@@ -19,5 +19,11 @@ namespace Business_Logic_Layer
 
             return student;
         }
+
+        public bool SaveAvatar(int student, string avatar)
+        {
+            int rowsAffected = _studentDataAccess.SaveAvatar(student, avatar);
+            return rowsAffected >= 1;
+        }
     }
 }

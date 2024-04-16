@@ -71,8 +71,12 @@
     background-color: #1F1F1F;
     border: 1px solid #ffffff22;
     border-radius: 7px;
-    font-size: 24px;
+    font-size: 20px;
     resize: none;
+}
+
+.chat-box:disabled {
+    background-color: #1F1F1F;
 }
 
 .chat-box:focus {
@@ -140,5 +144,23 @@ pre code.hljs {
     border-bottom: 1px solid #ffffff22;
 }
 
-.snippetCopyCode {
+.w-0 {
+    overflow: hidden;
+    width: 0;
+}
+
+.typing {
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 2s steps(40, end);
+}
+
+@keyframes typing {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
 }

@@ -7,6 +7,7 @@
             if (question.trim() !== '') {
                 $(".chat-box").val("");
                 addStudentChat(question)
+                addAiChat("Awnser")
                 return false;
             }
         }
@@ -39,27 +40,67 @@ function addStudentChat(message) {
 function addAiChat(message) {
     var htmlMessage = ""
     $.each(message.split("\n"), function (index, line) {
-        htmlMessage += "<p class='mb-2'>" + line + "</p>"
+        htmlMessage += "<p class='mb-2 w-0'>" + line + "</p>"
     });
 
-    var messageTemplate = `
+    var messageTemplate = $(`
     <div class="row mb-4">
         <div class="col-2 p-0 pr-2">
             <img src="img/avatars/garry.png" class="rounded-circle mx-auto d-block w-75">
         </div>
-        <div class="col p-0">
+        <div class="col-10 p-0">
             <p class="font-weight-bold mb-0">Garry AI</p>
             <div class="message-content">
                 ${htmlMessage}
             </div>
         </div>
     </div>
-    `
+    `)
     $(".question-section-content").append(messageTemplate)
+    animateMessage(messageTemplate)
     scrollToBottom()
 }
 
 function scrollToBottom() {
     var chat = $('.question-section-content');
     chat.scrollTop(chat[0].scrollHeight);
+}
+
+function animateMessage(message) {
+    $(".chat-box").prop('disabled', true);
+    $(".chat-box").attr('placeholder', "Wait...");
+    var elements = $(message).find(".message-content").children();
+    elements.each(function (index) {
+        var element = $(this);
+        var totalOuterHeight = 0;
+        setTimeout(function () {
+            element.addClass('typing');
+            element.removeClass('w-0');
+            $('.message-content').children().each(function () {
+                if ($(this).width() !== 0) {
+                    totalOuterHeight += $(this).outerHeight(true);
+                }
+            });
+            $(".message-content").outerHeight(totalOuterHeight);
+            scrollToBottom()
+        }, index * 2000);
+
+        setTimeout(function () {
+            element.removeClass('typing');
+        }, (index * 2000) + 2100);
+    });
+
+    setTimeout(function () {
+        $(".chat-box").prop('disabled', false);
+        $(".chat-box").attr('placeholder', "Message...");
+
+        var totalOuterHeight = 0;
+        $('.message-content').children().each(function () {
+            if ($(this).width() !== 0) {
+                totalOuterHeight += $(this).outerHeight(true);
+            }
+        });
+        $(".message-content").outerHeight(totalOuterHeight);
+        scrollToBottom()
+    }, elements.length * 2000);
 }
