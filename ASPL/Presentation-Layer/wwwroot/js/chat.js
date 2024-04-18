@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var chat = []
+$(document).ready(function () {
     addAiChat("👋 Welcome, i am Garry!\nNeed help with your courses, code, output, or errors ? I've got you covered!\n📘 Courses: I'll guide you through your courses.\n💻 Code: Stuck on code ? Let's debug it together.\n🔍 Output: Confused about output ? I'll decode it for you.\n❌ Error: Hit an error ? I'll help you fix it.\nJust ask, and I'll be here to assist you every step of the way! 🚀")
 
     $('.chat-box').on("keypress", function(e) {
@@ -15,6 +16,10 @@
 });
 
 function addStudentChat(message) {
+    chat.push({
+        sender: "student",
+        content: message
+    })
     var htmlMessage = ""
     $.each(message.split("\n"), function (index, line) {
         htmlMessage += "<p class='mb-2'>"+ line +"</p>"
@@ -38,6 +43,10 @@ function addStudentChat(message) {
 }
 
 function addAiChat(message) {
+    chat.push({
+        sender: "ai",
+        content: message
+    })
     var htmlMessage = ""
     $.each(message.split("\n"), function (index, line) {
         htmlMessage += "<p class='mb-2 w-0'>" + line + "</p>"
@@ -59,6 +68,7 @@ function addAiChat(message) {
     $(".question-section-content").append(messageTemplate)
     animateMessage(messageTemplate)
     scrollToBottom()
+    saveChat()
 }
 
 function scrollToBottom() {
@@ -110,4 +120,22 @@ function resizeMessageContainer(messageContainer) {
     });
     $(messageContainer).outerHeight(totalOuterHeight);
     scrollToBottom()
+}
+
+function saveChat() {
+    console.log(chat)
+    $.ajax({
+        url: 'app/saveChat',
+        method: 'POST',
+        data: {
+            course: currentCourse,
+            chat: chat
+        },
+        success: function (response) {
+            console.log("Saved Chat")
+        },
+        error: function (xhr, status, error) {
+            alertMessage("Something Went Wrong!")
+        }
+    });
 }

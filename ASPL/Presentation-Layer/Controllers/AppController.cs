@@ -13,14 +13,16 @@ namespace Presentation_Layer.Controllers
         private readonly CourseLogic courseLogic;
         private readonly StudentLogic studentLogic;
         private readonly CodeLogic codeLogic;
+        private readonly ChatLogic chatLogic;
         private readonly ILogger<AppController> _logger;
 
-        public AppController(ILogger<AppController> logger, IAuthenticationDataAccess authenticationDataAccess, ICourseDataAccess courseDataAccess, IStudentDataAccess studentDataAccess, ICodeDataAccess codeDataAccess)
+        public AppController(ILogger<AppController> logger, IAuthenticationDataAccess authenticationDataAccess, ICourseDataAccess courseDataAccess, IStudentDataAccess studentDataAccess, ICodeDataAccess codeDataAccess, IChatDataAccess chatDataAccess)
         {
             authenticationLogic = new AuthenticationLogic(authenticationDataAccess);
             courseLogic = new CourseLogic(courseDataAccess);
             studentLogic = new StudentLogic(studentDataAccess);
             codeLogic = new CodeLogic(codeDataAccess);
+            chatLogic = new ChatLogic(chatDataAccess);
             _logger = logger;
         }
 
@@ -107,6 +109,19 @@ namespace Presentation_Layer.Controllers
             if (authenticated)
             {
                 bool success = studentLogic.SaveAvatar(id, avatar);
+                return Content("{status:+ " + success + "}");
+            }
+            return Content("No Access");
+        }
+
+        [HttpPost]
+        public IActionResult SaveChat(int course, List<Dictionary<string, string>> chat)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                bool success = chatLogic.SaveChat(id, course, chat);
                 return Content("{status:+ " + success + "}");
             }
             return Content("No Access");

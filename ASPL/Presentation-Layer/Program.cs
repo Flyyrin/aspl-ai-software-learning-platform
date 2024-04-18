@@ -13,6 +13,7 @@ builder.Services.AddScoped<IAuthenticationDataAccess, AuthenticationDataAccess>(
 builder.Services.AddScoped<ICourseDataAccess, CourseDataAccess>();
 builder.Services.AddScoped<IStudentDataAccess, StudentDataAccess>();
 builder.Services.AddScoped<ICodeDataAccess, CodeDataAccess>();
+builder.Services.AddScoped<IChatDataAccess, ChatDataAccess>();
 
 //Jwt configuration starts here
 var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();

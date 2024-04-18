@@ -51,5 +51,23 @@ namespace Data_Access_Layer
                 return 0;
             }
         }
+
+        public object ExecuteScalarQuery(string query)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+                    MySqlCommand command = new MySqlCommand(query, connection);
+                    return command.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error executing scalar query: " + ex.Message);
+                return null;
+            }
+        }
     }
 }
