@@ -67,23 +67,25 @@ function scrollToBottom() {
 }
 
 function animateMessage(message) {
+    if (!$("#question-section-content").hasClass("show")) {
+        $(".question-nav").trigger('click');
+    }
+    $(".question-nav").attr('data-toggle', "");
     $(".chat-box").prop('disabled', true);
     $(".chat-box").attr('placeholder', "Wait...");
     var elements = $(message).find(".message-content").children();
+    var messageContainer = $(message).find(".message-content")
     elements.each(function (index) {
         var element = $(this);
-        var totalOuterHeight = 0;
         setTimeout(function () {
             element.addClass('typing');
             element.removeClass('w-0');
-            $('.message-content').children().each(function () {
-                if ($(this).width() !== 0) {
-                    totalOuterHeight += $(this).outerHeight(true);
-                }
-            });
-            $(".message-content").outerHeight(totalOuterHeight);
-            scrollToBottom()
+            resizeMessageContainer(messageContainer)
         }, index * 2000);
+
+        setTimeout(function () {
+            resizeMessageContainer(messageContainer)
+        }, (index * 2000) + 100);
 
         setTimeout(function () {
             element.removeClass('typing');
@@ -91,16 +93,21 @@ function animateMessage(message) {
     });
 
     setTimeout(function () {
-        $(".chat-box").prop('disabled', false);
-        $(".chat-box").attr('placeholder', "Message...");
+        resizeMessageContainer(messageContainer)
+    }, (elements.length * 2000) + 100);
+}
 
-        var totalOuterHeight = 0;
-        $('.message-content').children().each(function () {
-            if ($(this).width() !== 0) {
-                totalOuterHeight += $(this).outerHeight(true);
-            }
-        });
-        $(".message-content").outerHeight(totalOuterHeight);
-        scrollToBottom()
-    }, elements.length * 2000);
+function resizeMessageContainer(messageContainer) {
+    $(".question-nav").attr('data-toggle', "collapse");
+    $(".chat-box").prop('disabled', false);
+    $(".chat-box").attr('placeholder', "Message...");
+
+    var totalOuterHeight = 0;
+    $(messageContainer).children().each(function () {
+        if ($(this).width() !== 0) {
+            totalOuterHeight += $(this).outerHeight(true);
+        }
+    });
+    $(messageContainer).outerHeight(totalOuterHeight);
+    scrollToBottom()
 }
