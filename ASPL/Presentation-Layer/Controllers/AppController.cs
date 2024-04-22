@@ -114,6 +114,18 @@ namespace Presentation_Layer.Controllers
             return Content("No Access");
         }
 
+        public IActionResult getChat(int course)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                Chat chat = chatLogic.GetChat(id, course);
+                return Json(chat);
+            }
+            return Content("No Access");
+        }
+
         [HttpPost]
         public IActionResult SaveChat(int course, List<Dictionary<string, string>> chat)
         {

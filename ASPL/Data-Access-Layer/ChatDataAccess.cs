@@ -30,10 +30,15 @@ namespace Data_Access_Layer
             return chat;
         }
 
-        public int SaveMessage(int chat, string sender, string content)
+        public DataTable GetChat(int chat)
         {
-            Console.WriteLine(content);
-            int rowsAffected = dataAccess.ExecuteNonQuery($"INSERT IGNORE INTO messages (chat_id, sender, content) VALUES ({chat}, '{sender}', '{content}');");
+            DataTable data = dataAccess.ExecuteQuery($"SELECT * FROM messages WHERE chat_id = {chat} ORDER BY time;");
+            return data;
+        }
+
+        public int SaveMessage(int chat, string sender, string content, string time)
+        {
+            int rowsAffected = dataAccess.ExecuteNonQuery($"INSERT IGNORE INTO messages (chat_id, sender, content, time) VALUES ({chat}, '{sender}', '{content}', '{time}');");
             return rowsAffected;
         }
     }

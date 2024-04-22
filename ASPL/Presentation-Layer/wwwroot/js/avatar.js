@@ -87,7 +87,6 @@ function loadAvatar() {
 function saveAvatar() {
     var newStudentAvatar = previewAvatarBody + "-" + previewAvatarFace + "-" + previewAvatarHat
     if (newStudentAvatar != studentAvatar) {
-        console.log("save")
         avatarBody = previewAvatarBody
         avatarFace = previewAvatarFace
         avatarHat = previewAvatarHat

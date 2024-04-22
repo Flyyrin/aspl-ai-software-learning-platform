@@ -34,7 +34,6 @@ $(document).ready(function () {
     }
 
     $('.question-nav').on('click', function () {
-        console.log("click")
         if ($("#question-section-content").hasClass("show")) {
             menuOpen1 = false;
         } else {
@@ -44,7 +43,6 @@ $(document).ready(function () {
     })
 
     $('.explaination-nav').on('click', function () {
-        console.log("click")
         if ($("#explaination-section-content").hasClass("show")) {
             menuOpen2 = false;
         } else {
@@ -79,7 +77,6 @@ $(document).ready(function () {
     });
 
     $("#chapter-next").on("click", function () {
-        console.log("next")
         if (currentChapter < parseInt($("#chapter-count").text())) {
             currentChapter++;
             localStorage.setItem("lastChapter", currentChapter);
@@ -91,7 +88,6 @@ $(document).ready(function () {
     });
 
     $("#chapter-prev").on("click", function () {
-        console.log("next")
         if (currentChapter > 1) {
             currentChapter--;
             localStorage.setItem("lastChapter", currentChapter);
@@ -110,6 +106,7 @@ function loadContent() {
     $("#course-content").load("../content/" + currentCourse + "-" + currentChapter + ".html");
     resizeCourse()
     loadCode()
+    loadChat()
     setTimeout(function () {
         hljs.highlightAll();
         loadCodeSnippet()

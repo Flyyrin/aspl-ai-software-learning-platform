@@ -15,14 +15,12 @@ namespace Data_Access_Layer
         public bool CheckIfUsernameExists(string username)
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT username FROM students WHERE username = '{username}'");
-            Console.Write("usernameTaken: ");
             return data.Rows.Count == 1;
         }
 
         public bool CheckIfEmailExists(string email)
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT email FROM students WHERE email = '{email}'");
-            Console.Write("emailTaken: ");
             return data.Rows.Count == 1;
         }
 

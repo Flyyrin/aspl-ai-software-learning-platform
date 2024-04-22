@@ -9,7 +9,7 @@ namespace Data_Access_Layer
 
         public DataAccess()
         {
-            connectionString = "Server=localhost;Database=aspl;Uid=root;Pwd=;";
+            connectionString = "Server=localhost;Database=aspl;Uid=root;Pwd=root;Charset=utf8mb4;";
         }
 
         public DataTable ExecuteQuery(string query)

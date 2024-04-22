@@ -43,9 +43,6 @@ function loadCode() {
             data: { chapter },
             type: 'GET',
             success: function (response) {
-                console.log("Load:")
-                console.log(response)
-
                 if (response["output"] == "") {
                     response["output"] = "Output"
                 }
@@ -60,7 +57,7 @@ function loadCode() {
 
                 output = response["output"]
                 errorExplanation = response["errorExplanation"]
-
+                console.log("Loaded Code")
             },
             error: function (xhr, status, error) {
                 alertMessage("Something Went Wrong!")
@@ -85,13 +82,7 @@ function saveCode() {
                     errorExplanation: errorExplanation
                 },
                 success: function (response) {
-                    console.log("Saved")
-                    console.log({
-                        chapter: chapter,
-                        code: code,
-                        output: output,
-                        errorExplanation: errorExplanation
-                    })
+                    console.log("Saved Code")
                 },
                 error: function (xhr, status, error) {
                     alertMessage("Something Went Wrong!")
@@ -120,8 +111,6 @@ function runCode() {
 
                 output = response
                 $("#output-content").html(output)
-                console.log("run code")
-                console.log(output)
                 saveCode()
                 $(".runCode .text").show();
                 $(".runCode .spinner").hide();
