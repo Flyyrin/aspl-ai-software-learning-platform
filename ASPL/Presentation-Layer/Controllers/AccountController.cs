@@ -103,11 +103,6 @@ namespace Presentation_Layer.Controllers
             }
 
             return Redirect("/register");
-
-            TempData["usernameMessage"] = "Invalid Username. / Username Already Taken.";
-            TempData["emailMessage"] = "Invalid Email./ Email Already Taken.";
-            TempData["passwordMessage"] = "Invalid Password.";
-            TempData["passwordRepeatMessage"] = "Passwords Do Not Match.";
         }
 
         public IActionResult Logout()

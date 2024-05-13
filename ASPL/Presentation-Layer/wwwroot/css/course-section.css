@@ -155,6 +155,11 @@ pre code.hljs {
     animation: typing 2s steps(40, end);
 }
 
+.codeTyping {
+    overflow: hidden;
+    animation: typing 2s steps(40, end);
+}
+
 @keyframes typing {
     from {
         width: 0;

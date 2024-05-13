@@ -4,6 +4,7 @@ var menuOpen1 = localStorage.getItem("menuOpen1");
 var menuOpen2 = localStorage.getItem("menuOpen2");
 var spinner = "";
 var cooldownTime = 3000;
+var courseName = "";
 
 if (currentCourse === null) {
     currentCourse = 1;
@@ -24,6 +25,11 @@ if (menuOpen2 === null) {
     menuOpen2 = false;
     localStorage.setItem("menuOpen2", menuOpen2);
 }
+
+if (currentCourse == 1) { courseName = "python" }
+if (currentCourse == 2) { courseName = "csharp" }
+if (currentCourse == 3) { courseName = "javascript" }
+
 
 $(document).ready(function () {
     if (menuOpen1 == "true") {

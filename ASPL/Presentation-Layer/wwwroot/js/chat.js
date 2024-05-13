@@ -1,4 +1,6 @@
 ﻿var chat = []
+var lastMessage = "";
+var lastChatSave = new Date();
 $(document).ready(function () {
     $('.chat-box').on("keypress", function(e) {
         if (e.keyCode == 13 && !event.shiftKey) {
@@ -6,6 +8,7 @@ $(document).ready(function () {
             if (question.trim() !== '') {
                 $(".chat-box").val("");
                 addChat("student", question, true)
+                lastMessage = question;
                 addChat("ai", "-", true)
                 return false;
             }
@@ -51,9 +54,74 @@ async function addChat(sender, message, isNew) {
     }
 
     var htmlMessage = ""
-    $.each(message.split("\n"), function (index, line) {
-        htmlMessage += "<p class='mb-2 "+ aiClass +"'>" + line + "</p>"
+    var inCode = false;
+    var messageContent = []
+    $.each(message.split("```"), function (index, part) {
+
+        if (part != "") {
+            if (inCode) {
+                messageContent.push({
+                    "type": "code",
+                    "content": part
+                })
+            } else {
+                messageContent.push({
+                    "type": "text",
+                    "content": part
+                })
+            }
+        }
+        inCode = !inCode;
     });
+
+    messageContentFormatted = []
+    var firstH4 = true;
+
+    $.each(messageContent, function (index, item) {
+        if (item.type == "text") {
+            if (item.content.includes('\n')) {
+                $.each(item.content.split("\n"), function (index, line) {
+                    if (line != "") {
+                        line = correctMessage(line)
+
+                        line = line.replace(/\*\s\*\*(.*?)\*\*/g, function (match, group1) {
+                            return "• " + group1
+                        });
+                        line = line.replace(/\*\*(.*?)\*\*/g, function (match, group1) {
+                            if (firstH4) {
+                                firstH4 = false
+                                return "<h4 class='mt-0 " + aiClass + "'>" + group1 + "</h4>";
+                            } else {
+                                return "<h4 class='mt-4 " + aiClass + "'>" + group1 + "</h4>";
+
+                            }
+                        });
+                        line = line.replace(/(<\/h4>)(.*?)(?=<h4|$)/g, function (match, h4End, afterH4) {
+                            return h4End + "<p>" + afterH4 + "</p>";
+                        });
+                        line = line.replace(/\*\s(\w+)/g, "• $1");
+
+                        if (line.includes("<h4>")) {
+                            htmlMessage += line
+                        } else {
+                            htmlMessage += "<p class='mb-2 " + aiClass + "'>" + line + "</p>";
+                        }
+                    }
+                });
+            } else {
+                htmlMessage += "<p class='mb-2 " + aiClass + "'>" + item.content + "</p>";
+            }
+        } else {
+            const highlightedCode = hljs.highlight(
+                item.content,
+                { language: "python" }
+            ).value
+
+            htmlMessage += "<pre><div><code>" + highlightedCode + "\n</code></div></pre>";
+        }
+    });
+
+    $(messageTemplate).find(".message-content").html(htmlMessage)
 
     if (message == "-" && sender == "ai") {
         htmlMessage = "<div class='dot-typing'></div>"
@@ -81,11 +149,71 @@ async function addChat(sender, message, isNew) {
             $(".chat-box").prop('disabled', true);
             $(".chat-box").attr('placeholder', "Please wait...");
 
-            var awnser = await getAiResponse()
-
+            var awnser = await getResponse()
             var htmlMessage = ""
-            $.each(awnser.split("\n"), function (index, line) {
-                htmlMessage += "<p class='mb-2 " + aiClass + "'>" + line + "</p>"
+            var inCode = false;
+            var messageContent = []
+            $.each(awnser.split("```"), function (index, part) {
+
+                if (part != "") {
+                    if (inCode) {
+                        messageContent.push({
+                            "type": "code",
+                            "content": part
+                        })
+                    } else {
+                        messageContent.push({
+                            "type": "text",
+                            "content": part
+                        })
+                    }
+                }
+                inCode = !inCode;
+            });
+
+            messageContentFormatted = []
+            var firstH4 = true;
+            $.each(messageContent, function (index, item) {
+                if (item.type == "text") {
+                    if (item.content.includes('\n')) {
+                        $.each(item.content.split("\n"), function (index, line) {
+                            if (line != "") {
+                                line = correctMessage(line)
+                                line = line.replace(/\*\s\*\*(.*?)\*\*/g, function (match, group1) {
+                                    return "• " + group1
+                                });
+                                line = line.replace(/\*\*(.*?)\*\*/g, function (match, group1) {
+                                    if (firstH4) {
+                                        firstH4 = false
+                                        return "<h4 class='mt-0 " + aiClass + "'>" + group1 + "</h4>";
+                                    } else {
+                                        return "<h4 class='mt-4 " + aiClass + "'>" + group1 + "</h4>";
+
+                                    }
+                                });
+                                line = line.replace(/(<\/h4>)(.*?)(?=<h4|$)/g, function (match, h4End, afterH4) {
+                                    return h4End + "<p class='" + aiClass + "'>" + afterH4 + "</p>";
+                                });
+                                line = line.replace(/\*\s(\w+)/g, "• $1");
+
+                                if (line.includes("<h4>")) {
+                                    htmlMessage += line
+                                } else {
+                                    htmlMessage += "<p class='mb-2 " + aiClass + "'>" + line + "</p>";
+                                }
+                            }
+                        });
+                    } else {
+                        htmlMessage += "<p class='mb-2 " + aiClass + "'>" + item.content + "</p>";
+                    }
+                } else {
+                    const highlightedCode = hljs.highlight(
+                        item.content,
+                        { language: "python" }
+                    ).value
+
+                    htmlMessage += "<pre class='hiddenCode'><div class='w-0'><code>" + highlightedCode + "\n</code></div></pre>";
+                }
             });
 
             $(messageTemplate).find(".message-content").html(htmlMessage)
@@ -120,19 +248,44 @@ function animateMessage(message) {
     var messageContainer = $(message).find(".message-content")
     elements.each(function (index) {
         var element = $(this);
-        setTimeout(function () {
-            element.addClass('typing');
-            element.removeClass('w-0');
-            resizeMessageContainer(messageContainer)
-        }, index * 2000);
 
-        setTimeout(function () {
-            resizeMessageContainer(messageContainer)
-        }, (index * 2000) + 100);
+        if (element.is("p") || element.is("h4")) {
+            if (element.text() != "") {
+                setTimeout(function () {
+                    element.addClass('typing');
+                    element.removeClass('w-0');
+                    resizeMessageContainer(messageContainer)
+                }, index * 2000);
 
-        setTimeout(function () {
-            element.removeClass('typing');
-        }, (index * 2000) + 2100);
+                setTimeout(function () {
+                    resizeMessageContainer(messageContainer)
+                }, (index * 2000) + 100);
+
+                setTimeout(function () {
+                    element.removeClass('typing');
+                }, (index * 2000) + 2100);
+            }
+        } else {
+            setTimeout(function () {
+                element.removeClass("hiddenCode")
+                resizeMessageContainer(messageContainer)
+            }, index * 2000);
+
+            var codeElement = element.find(".w-0");
+            setTimeout(function () {
+                codeElement.addClass('codeTyping');
+                codeElement.removeClass('w-0');
+                resizeMessageContainer(messageContainer)
+            }, index * 2000);
+
+            setTimeout(function () {
+                resizeMessageContainer(messageContainer)
+            }, (index * 2000) + 100);
+
+            setTimeout(function () {
+                codeElement.removeClass('codeTyping');
+            }, (index * 2000) + 2100);
+        }
     });
 
     setTimeout(function () {
@@ -140,13 +293,14 @@ function animateMessage(message) {
         $(".question-nav").attr('data-toggle', "collapse");
         $(".chat-box").prop('disabled', false);
         $(".chat-box").attr('placeholder', "Message...");
+        $(".chat-box").focus();
     }, (elements.length * 2000) + 100);
 }
 
 function resizeMessageContainer(messageContainer) {
     var totalOuterHeight = 0;
     $(messageContainer).children().each(function () {
-        if ($(this).width() !== 0) {
+        if ($(this).width() !== 0 && !$(this).hasClass("hiddenCode")) {
             totalOuterHeight += $(this).outerHeight(true);
         }
     });
@@ -155,6 +309,12 @@ function resizeMessageContainer(messageContainer) {
 }
 
 function saveChat() {
+    var currentTime = new Date()
+    if (Math.abs(lastChatSave - currentTime) < 1000) {
+        console.log("Skipped Chat Save");
+        return;
+    }
+    lastChatSave = new Date();
     $.ajax({
         url: 'app/saveChat',
         method: 'POST',
@@ -196,11 +356,10 @@ function loadChat() {
     });
 }
 
-async function getAiResponse() {
-    await delay(5000)
-    return "Awnser"
-}
+function correctMessage(message) {
+    message = message.replace(/`(.*?)`/g, function (match, group1) {
+        return "<code>" + group1 + "</code>";
+    });
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return message
 }

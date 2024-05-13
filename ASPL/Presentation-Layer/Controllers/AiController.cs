@@ -31,5 +31,17 @@ namespace Presentation_Layer.Controllers
             }
             return Content("No Access");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> getResponse(List<Dictionary<string, string>> chat)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                return Content(await aiLogic.getResponse(chat));
+            }
+            return Content("No Access");
+        }
     }
 }
