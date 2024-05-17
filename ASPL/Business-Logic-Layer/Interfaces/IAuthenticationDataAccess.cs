@@ -13,5 +13,7 @@ namespace Business_Logic_Layer.Interfaces
         bool CheckIfUsernameExists(string username);
         bool CheckIfEmailExists(string email);
         DataTable LoginUser(string username, string password);
-    }
+        void SetConnectionString(string connectionString);
+
+	}
 }

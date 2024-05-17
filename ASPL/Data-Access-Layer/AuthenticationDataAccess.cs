@@ -12,6 +12,11 @@ namespace Data_Access_Layer
             dataAccess = new DataAccess();
         }
 
+        public void SetConnectionString(string connectionString)
+        {
+			dataAccess.SetConnectionString(connectionString);
+		}
+
         public bool CheckIfUsernameExists(string username)
         {
             DataTable data = dataAccess.ExecuteQuery($"SELECT username FROM students WHERE username = '{username}'");
@@ -32,7 +37,9 @@ namespace Data_Access_Layer
 
         public int RegisterUser(string username, string email, string password, string avatar)
         {
+            Console.WriteLine(username + ":" + email + ":" + password + ":" + avatar);
             int rowsAffected = dataAccess.ExecuteNonQuery($"INSERT INTO students (username, email, password, avatar) VALUES ('{username}', '{email}', '{password}', '{avatar}')");
+            Console.WriteLine(rowsAffected);
             return rowsAffected;
         }
     }

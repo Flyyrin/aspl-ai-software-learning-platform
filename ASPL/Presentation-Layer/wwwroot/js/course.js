@@ -108,6 +108,7 @@ $(document).ready(function () {
 function loadContent() {
     last_chapter = currentChapter
     alertMessage("Loading Content...")
+    $(".question-section-content").empty()
     $("#course-content").html(spinner)
     $("#course-content").load("../content/" + currentCourse + "-" + currentChapter + ".html");
     resizeCourse()

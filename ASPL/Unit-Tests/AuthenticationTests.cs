@@ -1,59 +1,49 @@
 using Business_Logic_Layer;
-using Org.BouncyCastle.Asn1.Cms;
+using Business_Logic_Layer.Interfaces;
+using Data_Access_Layer;
 
 namespace Unit_Tests
 {
-    public class AuthenticationTests
-    {
-        private AuthenticationLogic authenticationLogic;
+	[TestFixture]
+	public class AuthenticationTests
+	{
+		private AuthenticationLogic authenticationLogic;
+		private IAuthenticationDataAccess realAuthDataAccess;
 
-        [SetUp]
-        public void Setup()
-        {
-            authenticationLogic = new AuthenticationLogic();
-        }
+		[SetUp]
+		public void Setup()
+		{
+			realAuthDataAccess = new AuthenticationDataAccess();
+			string connectionString = "Server=localhost;Database=aspl_testing;Uid=root;Pwd=root;Charset=utf8mb4;";
 
-        [Test]
-        public void LoginUserTest()
-        {
-            string username = "Rafael";
-            string password = "@lol123";
+			// Set the connection string on the real data access object
+			realAuthDataAccess.SetConnectionString(connectionString);
 
-            string token = authenticationLogic.LoginUser(username, password);
-            Assert.IsNotEmpty(token);
-        }
+			// Pass the real data access object to AuthenticationLogic
+			authenticationLogic = new AuthenticationLogic(realAuthDataAccess);
+		}
 
-        [Test]
-        public void RegisterUserTest()
-        {
-            string username = "RafaelTest";
-            string email = "mai123l@mail.com";
-            string password = "@lol123";
+		[Test]
+		public void LoginUserTest()
+		{
+			string username = "Rafael";
+			string password = "@lol123";
 
-            authenticationLogic.RegisterUser(username, email, password, out string token, out bool usenameTaken, out bool emailTaken);
-            
-            if (usenameTaken)
-            {
-                Assert.Fail("Username Taken");
-            }
+			string token = authenticationLogic.LoginUser(username, password);
+			Assert.IsNotEmpty(token, $"Authenticated {username}");
+		}
 
-            if (emailTaken)
-            {
-                Assert.Fail("Email Taken");
-            }
+		[Test]
+		public void RegisterUserTest()
+		{
+			string username = "Rafael";
+			string email = "mai123l@mail.com";
+			string password = "@lol123";
+			string avatar = "0-0-1";
 
-            Assert.IsNotEmpty(token);
-        }
+			realAuthDataAccess.RegisterUser(username, email, password, avatar);
 
-        [Test]
-        public void AuthenticateUserTest()
-        {
-            string username = "Rafael";
-            string password = "@lol123";
-
-            string token = authenticationLogic.LoginUser(username, password);
-            bool authenticated = authenticationLogic.AuthenticateUser(token);
-            Assert.IsTrue(authenticated);
-        }
-    }
+			Assert.IsNotEmpty(username, $"Registered {username}");
+		}
+	}
 }

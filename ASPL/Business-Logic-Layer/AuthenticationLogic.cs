@@ -59,15 +59,18 @@ namespace Business_Logic_Layer
 
             usernameTaken = _authenticationDataAccess.CheckIfUsernameExists(username);
             emailTaken = _authenticationDataAccess.CheckIfEmailExists(email);
-
-            if (!usernameTaken && !emailTaken)
+            Console.WriteLine("TEST in Register logic:");
+			Console.WriteLine($"usernameTaken {usernameTaken}");
+			Console.WriteLine($"emailTaken {emailTaken}");
+			if (!usernameTaken && !emailTaken)
             {
                 Random random = new Random();
                 string passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
                 int randomNumber = random.Next(1, 4);
                 string avatar = $"{randomNumber}-0-0";
                 int rowsAffected = _authenticationDataAccess.RegisterUser(username, email, passwordHash, avatar);
-                if (rowsAffected == 1)
+				Console.WriteLine($"rowsAffected {rowsAffected}");
+				if (rowsAffected == 1)
                 {
                     token = LoginUser(username, password);
 

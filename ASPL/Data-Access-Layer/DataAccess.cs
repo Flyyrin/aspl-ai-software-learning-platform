@@ -12,7 +12,12 @@ namespace Data_Access_Layer
             connectionString = "Server=localhost;Database=aspl;Uid=root;Pwd=root;Charset=utf8mb4;";
         }
 
-        public DataTable ExecuteQuery(string query)
+		public void SetConnectionString(string newConnectionString)
+		{
+            connectionString = newConnectionString;
+		}
+
+		public DataTable ExecuteQuery(string query)
         {
             try
             {
@@ -36,8 +41,9 @@ namespace Data_Access_Layer
 
         public int ExecuteNonQuery(string query)
         {
-            try
-            {
+			Console.WriteLine(connectionString);
+			try
+			{
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
