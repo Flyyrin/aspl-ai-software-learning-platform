@@ -42,8 +42,30 @@ namespace Presentation_Layer.Controllers
                     LastCourse = Convert.ToInt32(Request.Cookies["lastCourse"] ?? "1"),
                 };
 
-
+                ViewBag.chapterMenu = TempData["chapterMenu"] ?? "closed";
                 return View(appViewModel);
+            }
+            else
+            {
+                Response.Cookies.Delete("sessionToken");
+                return Redirect("login");
+            }
+        }
+
+        [Route("editor/{chapter:int}")]
+        public IActionResult Edit(int chapter)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (sessionToken != null && authenticated)
+            {
+                Chapter selectedChapter = courseLogic.GetChapter(chapter);
+                var editViewModel = new EditViewModel
+                {
+                    SelectedChapter = selectedChapter,
+                };
+
+                return View(editViewModel);
             }
             else
             {
@@ -56,6 +78,12 @@ namespace Presentation_Layer.Controllers
         {
             List<Chapter> chapters = courseLogic.GetChapters(course);
             return Json(chapters);
+        }
+
+        public IActionResult GetChapter(int chapter)
+        {
+           Chapter chapterItem = courseLogic.GetChapter(chapter);
+            return Json(chapterItem);
         }
 
         public IActionResult PageNotFound()
@@ -135,6 +163,93 @@ namespace Presentation_Layer.Controllers
             {
                 bool success = chatLogic.SaveChat(id, course, chat);
                 return Content("{status:+ " + success + "}");
+            }
+            return Content("No Access");
+        }
+
+        [HttpPost]
+        public IActionResult updateChapterDetails(int chapter, string name, string description)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                Student student = studentLogic.GetStudentInfo(id);
+                if (student.Role == "admin")
+                {
+                    bool success = courseLogic.updateChapterDetails(chapter, name, description);
+                    return Content("{status:+ " + success + "}");
+                } 
+                else
+                {
+                    return Content("No Access");
+                }
+            }
+            return Content("No Access");
+        }
+
+        [Route("deleteChapter/{chapter:int}")]
+        public IActionResult deleteChapter(int chapter)
+        {
+            Console.WriteLine(chapter);
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                Student student = studentLogic.GetStudentInfo(id);
+                if (student.Role == "admin")
+                {
+                    bool success = courseLogic.deleteChapter(chapter);
+                    TempData["chapterMenu"] = "open2";
+                    return Redirect("/");
+                }
+                else
+                {
+                    return Content("No Access");
+                }
+            }
+            return Content("No Access");
+        }
+
+        [Route("addChapter/{course:int}")]
+        public IActionResult addChapter(int course)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                Student student = studentLogic.GetStudentInfo(id);
+                if (student.Role == "admin")
+                {
+                    bool success = courseLogic.addChapter(course);
+                    TempData["chapterMenu"] = "open";
+                    return Redirect("/");
+                }
+                else
+                {
+                    return Content("No Access");
+                }
+            }
+            return Content("No Access");
+        }
+
+        [HttpPost]
+        public IActionResult saveContent(int chapter, string code)
+        {
+            string sessionToken = Request.Cookies["sessionToken"];
+            authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
+            if (authenticated)
+            {
+                Student student = studentLogic.GetStudentInfo(id);
+                if (student.Role == "admin")
+                {
+                    bool success = courseLogic.updateChapterContent(chapter, code);
+                    return Content("{status:+ " + success + "}");
+                }
+                else
+                {
+                    return Content("No Access");
+                }
             }
             return Content("No Access");
         }

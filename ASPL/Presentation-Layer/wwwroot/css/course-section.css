@@ -212,3 +212,45 @@ pre code.hljs {
         box-shadow: 9984px 0 0 0 #fff, 9999px 0 0 0 #fff, 10014px 0 0 0 #fff;
     }
 }
+
+.editIcon {
+    position: absolute;
+    top: 50%;
+    left: 85%;
+    transform: translateY(-210%);
+}
+
+.deleteIcon {
+    position: absolute;
+    top: 50%;
+    left: 98%;
+    transform: translateY(-210%);
+}
+
+.fakeP {
+    color: #fff !important;
+    border: none;
+    font-size: 16px !important;
+    letter-spacing: 0.08em !important;
+    background-color: transparent !important;
+    width: 100% !important;
+}
+
+.fakeP:active, .fakeP:focus {
+    border: none;
+    outline: none;
+}
+
+.fakeP:disabled {
+    border: none;
+    background-color: transparent !important;
+    color: #fff !important;
+}
+
+.fakeP:disabled.chapter-description {
+    color: #808080ff !important;
+}
+
+.addChapter:hover {
+    color: #5B1CBA !important;
+}

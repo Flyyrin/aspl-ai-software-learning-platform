@@ -32,6 +32,19 @@ if (currentCourse == 3) { courseName = "javascript" }
 
 
 $(document).ready(function () {
+    if (chapterMenu == "open") {
+        setTimeout(function () {
+            $(".bi-list").trigger("click")
+            setTimeout(function () {
+                $('.chapterDropdown').scrollTop(9999999);
+            }, 500);
+        }, 500);
+    }
+    if (chapterMenu == "open2") {
+        setTimeout(function () {
+            $(".bi-list").trigger("click")
+        }, 500);
+    }
     if (menuOpen1 == "true") {
         $(".question-nav").trigger("click")
     }
@@ -110,7 +123,7 @@ function loadContent() {
     alertMessage("Loading Content...")
     $(".question-section-content").empty()
     $("#course-content").html(spinner)
-    $("#course-content").load("../content/" + currentCourse + "-" + currentChapter + ".html");
+    loadChapterContent()
     resizeCourse()
     loadCode()
     loadChat()
@@ -131,16 +144,22 @@ function loadChapters() {
             $("chapter-dropdown").find("a").removeClass("selected")
             $('#chapter-dropdown').empty()
             $.each(response, function (index, chapter) {
-                var chapterItem = '<a class="dropdown-item wrap my-2 py-2 var-placeholder" chapter="' + chapter.id + '"><p class="mb-0">' + chapter.name + '</p><p class="mb-0 chapter-description">' + chapter.description + '</p></a>'
-
+                var newChapterItem = chapterItem
+                newChapterItem = newChapterItem.replace("{{chapter_id}}", chapter.id)
+                newChapterItem = newChapterItem.replace("{{chapter_name}}", chapter.name)
+                newChapterItem = newChapterItem.replace("{{chapter_description}}", chapter.description)
+                newChapterItem = newChapterItem.replace("{{chapter_name}}", chapter.name)
+                newChapterItem = newChapterItem.replace("{{chapter_description}}", chapter.description)
                 if (index + 1 == currentChapter) {
-                    chapterItem = chapterItem.replace("var-placeholder", "selected")
+                    newChapterItem = newChapterItem.replace("var-placeholder", "selected")
                 }
         
-                $('#chapter-dropdown').append(chapterItem);
+                $('#chapter-dropdown').append(newChapterItem);
             });
 
             loadContent()
+            enableEdit()
+            enableDelete()
 
             $("#chapter-dropdown a").on("click", function (event) {
                 var newChapter = parseInt($(this).index())+1;
@@ -194,5 +213,24 @@ function loadCodeSnippet() {
             $("#snippetCopyCodeEditor .bi-code-slash").show();
             saveCode()
         }, 2000);
+    });
+}
+
+function loadChapterContent() {
+    var chapterId = $('#chapter-dropdown .selected').attr('chapter');
+    $.ajax({
+        url: 'app/getChapter',
+        data: { chapter: chapterId },
+        type: 'GET',
+        success: function (response) {
+            console.log(response)
+            var code = decodeCode(response.content)
+            var button = `<a class="btn btn-el text-white w-auto d-block mt-3" href="/editor/${response.id}">Edit content</a>`
+            $("#course-content").html(button+code);
+            alertMessage("Loaded chapter content.")
+        },
+        error: function (xhr, status, error) {
+            alertMessage("Something Went Wrong!")
+        }
     });
 }

@@ -78,6 +78,12 @@ app.MapControllerRoute(
 );
 
 app.MapControllerRoute(
+    name: "editor",
+    pattern: "editor",
+    defaults: new { controller = "App", action = "Edit" }
+);
+
+app.MapControllerRoute(
     name: "logout",
     pattern: "logout",
     defaults: new { controller = "Account", action = "Logout" }

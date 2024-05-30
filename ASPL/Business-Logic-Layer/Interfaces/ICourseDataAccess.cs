@@ -11,5 +11,10 @@ namespace Business_Logic_Layer.Interfaces
     {
         DataTable GetCourses();
         DataTable GetChapters(int course);
+        int updateChapterDetails(int chapter, string name, string description);
+        int addChapter(int course);
+        int deleteChapter(int chapter);
+        int updateChapterContent(int chapter, string content);
+        DataTable GetChapter(int chapter);
     }
 }

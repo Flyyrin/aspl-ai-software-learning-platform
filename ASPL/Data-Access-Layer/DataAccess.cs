@@ -41,7 +41,6 @@ namespace Data_Access_Layer
 
         public int ExecuteNonQuery(string query)
         {
-			Console.WriteLine(connectionString);
 			try
 			{
                 using (MySqlConnection connection = new MySqlConnection(connectionString))
