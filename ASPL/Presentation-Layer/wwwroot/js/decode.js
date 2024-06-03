@@ -1,3 +1,10 @@
+var allowedElements = {
+    text: '<p>{{content}}</p>',
+    title: '<h1 class="mt- 0">{{content}}</h1>',
+    subtitle: '<h2 class="mt- 0">{{content}}</h2>',
+    header: '<h3 class="mt- 0">{{content}}</h3>',
+    snippet: '<pre><code class="language-python my-3">{{content}}</code></pre>',
+}
 function decodeCode(code) {
     const segments = code.match(/<[^>]+>.*?<\/[^>]+>/gs);
 

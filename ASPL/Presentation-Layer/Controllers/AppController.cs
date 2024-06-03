@@ -59,13 +59,22 @@ namespace Presentation_Layer.Controllers
             authenticationLogic.AuthenticateUser(sessionToken, out bool authenticated, out int id);
             if (sessionToken != null && authenticated)
             {
-                Chapter selectedChapter = courseLogic.GetChapter(chapter);
-                var editViewModel = new EditViewModel
+                Student student = studentLogic.GetStudentInfo(id);
+                if (student.Role == "admin")
                 {
-                    SelectedChapter = selectedChapter,
-                };
+                    Chapter selectedChapter = courseLogic.GetChapter(chapter);
+                    var editViewModel = new EditViewModel
+                    {
+                        SelectedChapter = selectedChapter,
+                    };
 
-                return View(editViewModel);
+                    return View(editViewModel);
+                } 
+                else
+                {
+                    return Redirect("/");
+                }
+                
             }
             else
             {

@@ -225,7 +225,12 @@ function loadChapterContent() {
         success: function (response) {
             console.log(response)
             var code = decodeCode(response.content)
-            var button = `<a class="btn btn-el text-white w-auto d-block mt-3" href="/editor/${response.id}">Edit content</a>`
+
+            var button = ""
+            if (studentRole == "admin") {
+                button = `<a class="btn btn-el text-white w-auto d-block mt-3 mb-3" href="/editor/${response.id}">Edit content</a>`
+            }
+
             $("#course-content").html(button+code);
             alertMessage("Loaded chapter content.")
         },

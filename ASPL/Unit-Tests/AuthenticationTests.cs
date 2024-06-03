@@ -1,6 +1,8 @@
 using Business_Logic_Layer;
 using Business_Logic_Layer.Interfaces;
-using Data_Access_Layer;
+using IronPython.Compiler;
+using Moq;
+using System.Data;
 
 namespace Unit_Tests
 {
@@ -8,42 +10,44 @@ namespace Unit_Tests
 	public class AuthenticationTests
 	{
 		private AuthenticationLogic authenticationLogic;
-		private IAuthenticationDataAccess realAuthDataAccess;
+        private Mock<IAuthenticationDataAccess> mockAuthDataAccess;
 
-		[SetUp]
+        [SetUp]
 		public void Setup()
 		{
-			realAuthDataAccess = new AuthenticationDataAccess();
-			string connectionString = "Server=localhost;Database=aspl_testing;Uid=root;Pwd=root;Charset=utf8mb4;";
-
-			// Set the connection string on the real data access object
-			realAuthDataAccess.SetConnectionString(connectionString);
-
-			// Pass the real data access object to AuthenticationLogic
-			authenticationLogic = new AuthenticationLogic(realAuthDataAccess);
-		}
+            mockAuthDataAccess = new Mock<IAuthenticationDataAccess>();
+        }
 
 		[Test]
 		public void LoginUserTest()
 		{
-			string username = "Rafael";
+			mockAuthDataAccess.Setup(m => m.LoginUser("Rafael", "@lol123")).Returns(new DataTable() { Columns = { "Username", "Password", { "Id", typeof(int) } }, Rows = { { "Rafael", "$2a$10$cXQgIro/BHqK4EYOr5dOseMH.4wN/eWi.2JEoGLZoOuGF/Og0frYC", 0 } } });
+            authenticationLogic = new AuthenticationLogic(mockAuthDataAccess.Object);
+
+            string username = "Rafael";
 			string password = "@lol123";
 
 			string token = authenticationLogic.LoginUser(username, password);
-			Assert.IsNotEmpty(token, $"Authenticated {username}");
+			Assert.IsNotEmpty(token, $"Not authenticated {username}");
 		}
 
-		[Test]
+        [Test]
 		public void RegisterUserTest()
 		{
-			string username = "Rafael";
-			string email = "mai123l@mail.com";
+            mockAuthDataAccess.Setup(m => m.RegisterUser("Rafael", "Rafael@mail.com", "@lol123", "1-0-0")).Returns(1);
+            authenticationLogic = new AuthenticationLogic(mockAuthDataAccess.Object);
+
+            string username = "Rafael";
+			string email = "Rafael@mail.com";
 			string password = "@lol123";
-			string avatar = "0-0-1";
 
-			realAuthDataAccess.RegisterUser(username, email, password, avatar);
+			authenticationLogic.RegisterUser(username, email, password, out string token, out bool usernameTaken, out bool emailTaken); token += ":id";
 
-			Assert.IsNotEmpty(username, $"Registered {username}");
-		}
+            Assert.IsNotEmpty(token, $"Not authenticated {username}");
+			Assert.IsFalse(usernameTaken, $"{username} taken");
+            Assert.IsFalse(emailTaken, $"{email} taken");
+        }
+
+		private delegate void RegisterUserCallback(string username, string email, string password, string avatar, out string token, out bool usernameTaken, out bool emailTaken);
 	}
 }
