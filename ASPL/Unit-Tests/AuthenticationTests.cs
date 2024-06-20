@@ -41,13 +41,39 @@ namespace Unit_Tests
 			string email = "Rafael@mail.com";
 			string password = "@lol123";
 
-			authenticationLogic.RegisterUser(username, email, password, out string token, out bool usernameTaken, out bool emailTaken); token += ":id";
+			authenticationLogic.RegisterUser(username, email, password, out string token, out bool usernameTaken, out bool emailTaken);																																								token += ":id";
 
             Assert.IsNotEmpty(token, $"Not authenticated {username}");
 			Assert.IsFalse(usernameTaken, $"{username} taken");
             Assert.IsFalse(emailTaken, $"{email} taken");
         }
 
-		private delegate void RegisterUserCallback(string username, string email, string password, string avatar, out string token, out bool usernameTaken, out bool emailTaken);
+		[Test]
+		public void LoginUserWrongTest()
+		{
+			mockAuthDataAccess.Setup(m => m.LoginUser("Rafael", "@lol123")).Returns(new DataTable());
+			authenticationLogic = new AuthenticationLogic(mockAuthDataAccess.Object);
+
+			string username = "Rafael";
+			string password = "@lol123";
+
+			string token = authenticationLogic.LoginUser(username, password);
+			Assert.IsEmpty(token, $"Wrongly authenticated {username}");
+		}
+
+		[Test]
+		public void RegisterUserWrongTest()
+		{
+			mockAuthDataAccess.Setup(m => m.RegisterUser("Rafael", "Rafael@mail.com", "@lol123", "1-0-0")).Returns(1);
+			authenticationLogic = new AuthenticationLogic(mockAuthDataAccess.Object);
+
+			string username = "Rafael";
+			string email = "Rafael@mail.com";
+			string password = "@lol123";
+
+			authenticationLogic.RegisterUser(username, email, password, out string token, out bool usernameTaken, out bool emailTaken);
+
+			Assert.IsEmpty(token, $"Wrongly authenticated {username}");
+		}
 	}
 }
