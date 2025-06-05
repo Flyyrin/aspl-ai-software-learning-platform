@@ -12,17 +12,17 @@ ASPL is an advanced online education enviroment powered by AI, it allows users t
 - Users can collect points and buy avatar cosmetics
 
 ## :gear: Techniques & Tools
-- **Raspberry Pi** als basis voor het damboard
-- **Python** voor de logica van het dambord
-- **HTML/CSS/JavaScript** voor de webinterface
-- **Jquery** voor de comunictie met de API en logica voor de Real-time weergave
-- **Flask** als framework voor de API
-- **WS2812b Ledstrip** voor visuele feedback
+- **.NET** as general framework
+- **OpenAI API** is used to power AI functions
+- **Bootstrap** to style the interface
+- **JavaScript** to script interactive features
 
 ## :file_folder: Mappenstructuur
-- `main/` – Code voor bordbesturing en webinterface
-- `server/` – Backend/servercode (API)
-- `website/` – Root van de frontend website
-
-## :star2: Over het project
-Dit project werd ontwikkeld als onderdeel van onze GIP 2022–2023 voor onze opleiding industriële ICT, Mosa-RT Maaseik.
+- `ASPL/`
+  - `/Business-Logic-Layer` – Functions that handle logic
+  - `/Data-Access-Layer` – Functions that handle data
+  - `/Presentation-Layer` – View models and frontend
+  - `/Unit-Tests` – Unit tests to check if all functions work
+- `Analyse/` – Contains analysis documents
+- `Implementatie/` – Contains unused test files
+- `Ontwerp/` – Contains design documents
