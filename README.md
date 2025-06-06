@@ -1,4 +1,5 @@
 # ASPL AI Software Learning Platform
+:link: See preview: ![Preview](#camera-preview)
 
 ## :brain: Project Description
 ASPL is an advanced online education enviroment powered by AI, it allows users to get help with learning the concept of programing.
@@ -26,3 +27,14 @@ ASPL is an advanced online education enviroment powered by AI, it allows users t
 - `Analyse/` – Contains analysis documents
 - `Implementatie/` – Contains unused test files
 - `Ontwerp/` – Contains design documents
+
+## :camera: Preview
+<p align="center">
+  <img width="500" src="https://github.com/user-attachments/assets/753eaec1-1015-4cd9-b231-c3e976e23177">
+</p>
+<p align="center">
+  <img width="500" src="https://github.com/user-attachments/assets/469ce7c4-76b4-47d0-8c6c-65dc162ade39">
+</p>
+<p align="center">
+  <img width="500" src="https://github.com/user-attachments/assets/75250161-4ef2-4b18-a59d-25ece084d5a3">
+</p>
